@@ -1,0 +1,146 @@
+10401 execve("./hai", ["./hai", "echo", "pepe"], [/* 64 vars */]) = 0
+10401 brk(0)                            = 0x8b23000
+10401 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+10401 mmap2(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xfffffffff77bd000
+10401 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+10401 open("/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+10401 fstat64(3, {st_mode=S_IFREG|0644, st_size=142153, ...}) = 0
+10401 mmap2(NULL, 142153, PROT_READ, MAP_PRIVATE, 3, 0) = 0xfffffffff779a000
+10401 close(3)                          = 0
+10401 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+10401 open("/lib/i386-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+10401 read(3, "\177ELF\1\1\1\0\0\0\0\0\0\0\0\0\3\0\3\0\1\0\0\0`\232\1\0004\0\0\0"..., 512) = 512
+10401 fstat64(3, {st_mode=S_IFREG|0755, st_size=1779492, ...}) = 0
+10401 mmap2(NULL, 1784604, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xfffffffff75e6000
+10401 mmap2(0xf7794000, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1ae000) = 0xfffffffff7794000
+10401 mmap2(0xf7797000, 11036, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xfffffffff7797000
+10401 close(3)                          = 0
+10401 mmap2(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xfffffffff75e5000
+10401 set_thread_area(0xffcf5780)       = 0
+10401 mprotect(0xf7794000, 8192, PROT_READ) = 0
+10401 mprotect(0x8049000, 4096, PROT_READ) = 0
+10401 mprotect(0xf77e0000, 4096, PROT_READ) = 0
+10401 munmap(0xf779a000, 142153)        = 0
+10401 clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0) = 10402
+10401 rt_sigaction(SIGINT, {0x8048615, [INT], SA_RESTART}, {SIG_DFL, [], 0}, 8) = 0
+10401 rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0
+10401 rt_sigaction(SIGCHLD, NULL, {SIG_DFL, [], 0}, 8) = 0
+10401 rt_sigprocmask(SIG_SETMASK, [],  <unfinished ...>
+10402 rt_sigaction(SIGURG, {0x80485e4, [URG], SA_RESTART},  <unfinished ...>
+10401 <... rt_sigprocmask resumed> NULL, 8) = 0
+10402 <... rt_sigaction resumed> {SIG_DFL, [], 0}, 8) = 0
+10401 nanosleep({1, 0}, 0xffcf572c)     = 0
+10401 write(1, "sup!\n", 5)             = 5
+10401 kill(10402, SIGURG <unfinished ...>
+10402 --- SIGURG {si_signo=SIGURG, si_code=SI_USER, si_pid=10401, si_uid=1000} ---
+10401 <... kill resumed> )              = 0
+10401 rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0
+10401 rt_sigaction(SIGCHLD, NULL, {SIG_DFL, [], 0}, 8) = 0
+10401 rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+10401 nanosleep({1, 0},  <unfinished ...>
+10402 write(1, "ya va!\n", 7)           = 7
+10402 sigreturn()                       = 0
+10401 <... nanosleep resumed> 0xffcf572c) = 0
+10401 write(1, "sup!\n", 5)             = 5
+10401 kill(10402, SIGURG <unfinished ...>
+10402 --- SIGURG {si_signo=SIGURG, si_code=SI_USER, si_pid=10401, si_uid=1000} ---
+10401 <... kill resumed> )              = 0
+10402 write(1, "ya va!\n", 7 <unfinished ...>
+10401 rt_sigprocmask(SIG_BLOCK, [CHLD],  <unfinished ...>
+10402 <... write resumed> )             = 7
+10401 <... rt_sigprocmask resumed> [], 8) = 0
+10402 sigreturn( <unfinished ...>
+10401 rt_sigaction(SIGCHLD, NULL, {SIG_DFL, [], 0}, 8) = 0
+10401 rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+10401 nanosleep({1, 0},  <unfinished ...>
+10402 <... sigreturn resumed> )         = 1
+10401 <... nanosleep resumed> 0xffcf572c) = 0
+10401 write(1, "sup!\n", 5)             = 5
+10401 kill(10402, SIGURG <unfinished ...>
+10402 --- SIGURG {si_signo=SIGURG, si_code=SI_USER, si_pid=10401, si_uid=1000} ---
+10401 <... kill resumed> )              = 0
+10402 write(1, "ya va!\n", 7 <unfinished ...>
+10401 rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0
+10401 rt_sigaction(SIGCHLD, NULL, {SIG_DFL, [], 0}, 8) = 0
+10401 rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+10401 nanosleep({1, 0},  <unfinished ...>
+10402 <... write resumed> )             = 7
+10402 sigreturn()                       = 2
+10401 <... nanosleep resumed> 0xffcf572c) = 0
+10401 write(1, "sup!\n", 5)             = 5
+10401 kill(10402, SIGURG <unfinished ...>
+10402 --- SIGURG {si_signo=SIGURG, si_code=SI_USER, si_pid=10401, si_uid=1000} ---
+10401 <... kill resumed> )              = 0
+10401 rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0
+10402 write(1, "ya va!\n", 7 <unfinished ...>
+10401 rt_sigaction(SIGCHLD, NULL, {SIG_DFL, [], 0}, 8) = 0
+10401 rt_sigprocmask(SIG_SETMASK, [],  <unfinished ...>
+10402 <... write resumed> )             = 7
+10401 <... rt_sigprocmask resumed> NULL, 8) = 0
+10401 nanosleep({1, 0},  <unfinished ...>
+10402 sigreturn()                       = 3
+10401 <... nanosleep resumed> 0xffcf572c) = 0
+10401 write(1, "sup!\n", 5)             = 5
+10401 kill(10402, SIGURG)               = 0
+10402 --- SIGURG {si_signo=SIGURG, si_code=SI_USER, si_pid=10401, si_uid=1000} ---
+10401 rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0
+10401 rt_sigaction(SIGCHLD, NULL, {SIG_DFL, [], 0}, 8) = 0
+10401 rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+10401 nanosleep({1, 0},  <unfinished ...>
+10402 write(1, "ya va!\n", 7)           = 7
+10402 sigreturn()                       = 4
+10402 getppid()                         = 10401
+10402 kill(10401, SIGINT <unfinished ...>
+10401 <... nanosleep resumed> {0, 998400785}) = ? ERESTART_RESTARTBLOCK (Interrupted by signal)
+10401 --- SIGINT {si_signo=SIGINT, si_code=SI_USER, si_pid=10402, si_uid=1000} ---
+10401 wait4(-1,  <unfinished ...>
+10402 <... kill resumed> )              = 0
+10402 execve("/usr/lib/lightdm/lightdm/echo", ["echo", "pepe"], [/* 56 vars */]) = -1 ENOENT (No such file or directory)
+10402 execve("/usr/local/sbin/echo", ["echo", "pepe"], [/* 56 vars */]) = -1 ENOENT (No such file or directory)
+10402 execve("/usr/local/bin/echo", ["echo", "pepe"], [/* 56 vars */]) = -1 ENOENT (No such file or directory)
+10402 execve("/usr/sbin/echo", ["echo", "pepe"], [/* 56 vars */]) = -1 ENOENT (No such file or directory)
+10402 execve("/usr/bin/echo", ["echo", "pepe"], [/* 56 vars */]) = -1 ENOENT (No such file or directory)
+10402 execve("/sbin/echo", ["echo", "pepe"], [/* 56 vars */]) = -1 ENOENT (No such file or directory)
+10402 execve("/bin/echo", ["echo", "pepe"], [/* 56 vars */]) = 0
+10402 brk(0)                            = 0x11db000
+10402 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+10402 mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f7ea8dcf000
+10402 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+10402 open("/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+10402 fstat(3, {st_mode=S_IFREG|0644, st_size=142153, ...}) = 0
+10402 mmap(NULL, 142153, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f7ea8dac000
+10402 close(3)                          = 0
+10402 access("/etc/ld.so.nohwcap", F_OK) = -1 ENOENT (No such file or directory)
+10402 open("/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+10402 read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\360\36\2\0\0\0\0\0"..., 832) = 832
+10402 fstat(3, {st_mode=S_IFREG|0755, st_size=1853400, ...}) = 0
+10402 mmap(NULL, 3961912, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f7ea87e7000
+10402 mprotect(0x7f7ea89a4000, 2097152, PROT_NONE) = 0
+10402 mmap(0x7f7ea8ba4000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1bd000) = 0x7f7ea8ba4000
+10402 mmap(0x7f7ea8baa000, 17464, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f7ea8baa000
+10402 close(3)                          = 0
+10402 mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f7ea8dab000
+10402 mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f7ea8da9000
+10402 arch_prctl(ARCH_SET_FS, 0x7f7ea8da9740) = 0
+10402 mprotect(0x7f7ea8ba4000, 16384, PROT_READ) = 0
+10402 mprotect(0x606000, 4096, PROT_READ) = 0
+10402 mprotect(0x7f7ea8dd1000, 4096, PROT_READ) = 0
+10402 munmap(0x7f7ea8dac000, 142153)    = 0
+10402 brk(0)                            = 0x11db000
+10402 brk(0x11fc000)                    = 0x11fc000
+10402 open("/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3
+10402 fstat(3, {st_mode=S_IFREG|0644, st_size=7212544, ...}) = 0
+10402 mmap(NULL, 7212544, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f7ea8106000
+10402 close(3)                          = 0
+10402 fstat(1, {st_mode=S_IFCHR|0620, st_rdev=makedev(136, 6), ...}) = 0
+10402 mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f7ea8dce000
+10402 write(1, "pepe\n", 5)             = 5
+10402 close(1)                          = 0
+10402 munmap(0x7f7ea8dce000, 4096)      = 0
+10402 close(2)                          = 0
+10402 exit_group(0)                     = ?
+10402 +++ exited with 0 +++
+10401 <... wait4 resumed> [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 10402
+10401 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=10402, si_status=0, si_utime=493, si_stime=3} ---
+10401 exit_group(0)                     = ?
+10401 +++ exited with 0 +++

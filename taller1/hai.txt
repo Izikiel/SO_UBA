@@ -1,0 +1,60 @@
+execve("./hai", ["./hai", "echo", "pepe"], [/* 64 vars */]) = 0
+brk(0)                                  = 0x8e57000
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+mmap2(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xfffffffff77b0000
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+open("/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat64(3, {st_mode=S_IFREG|0644, st_size=142153, ...}) = 0
+mmap2(NULL, 142153, PROT_READ, MAP_PRIVATE, 3, 0) = 0xfffffffff778d000
+close(3)                                = 0
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+open("/lib/i386-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\1\1\1\0\0\0\0\0\0\0\0\0\3\0\3\0\1\0\0\0`\232\1\0004\0\0\0"..., 512) = 512
+fstat64(3, {st_mode=S_IFREG|0755, st_size=1779492, ...}) = 0
+mmap2(NULL, 1784604, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xfffffffff75d9000
+mmap2(0xf7787000, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1ae000) = 0xfffffffff7787000
+mmap2(0xf778a000, 11036, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xfffffffff778a000
+close(3)                                = 0
+mmap2(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xfffffffff75d8000
+set_thread_area(0xfffa4ba0)             = 0
+mprotect(0xf7787000, 8192, PROT_READ)   = 0
+mprotect(0x8049000, 4096, PROT_READ)    = 0
+mprotect(0xf77d3000, 4096, PROT_READ)   = 0
+munmap(0xf778d000, 142153)              = 0
+clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0) = 5305
+rt_sigaction(SIGINT, {0x8048615, [INT], SA_RESTART}, {SIG_DFL, [], 0}, 8) = 0
+rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0
+rt_sigaction(SIGCHLD, NULL, {SIG_DFL, [], 0}, 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+nanosleep({1, 0}, 0xfffa4b4c)           = 0
+write(1, "sup!\n", 5)                   = 5
+kill(5305, SIGURG)                      = 0
+rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0
+rt_sigaction(SIGCHLD, NULL, {SIG_DFL, [], 0}, 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+nanosleep({1, 0}, 0xfffa4b4c)           = 0
+write(1, "sup!\n", 5)                   = 5
+kill(5305, SIGURG)                      = 0
+rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0
+rt_sigaction(SIGCHLD, NULL, {SIG_DFL, [], 0}, 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+nanosleep({1, 0}, 0xfffa4b4c)           = 0
+write(1, "sup!\n", 5)                   = 5
+kill(5305, SIGURG)                      = 0
+rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0
+rt_sigaction(SIGCHLD, NULL, {SIG_DFL, [], 0}, 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+nanosleep({1, 0}, 0xfffa4b4c)           = 0
+write(1, "sup!\n", 5)                   = 5
+kill(5305, SIGURG)                      = 0
+rt_sigprocmask(SIG_BLOCK, [CHLD], [], 8) = 0
+rt_sigaction(SIGCHLD, NULL, {SIG_DFL, [], 0}, 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+nanosleep({1, 0}, 0xfffa4b4c)           = 0
+write(1, "sup!\n", 5)                   = 5
+kill(5305, SIGURG)                      = 0
+--- SIGINT {si_signo=SIGINT, si_code=SI_USER, si_pid=5305, si_uid=1000} ---
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 5305
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=5305, si_status=0, si_utime=497, si_stime=1} ---
+exit_group(0)                           = ?
++++ exited with 0 +++
