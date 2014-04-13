@@ -1,4 +1,6 @@
 #include "tasks.h"
+#include <random>
+#include <chrono>
 
 using namespace std;
 
@@ -18,6 +20,15 @@ void TaskAlterno(int pid, vector<int> params) { // params: ms_pid, ms_io, ms_pid
 	}
 }
 
+void TaskConsola(int pid, vector<int> params) { // params: n, bmin, bmax, ...
+	unsigned seed1 = std::chrono::system_clock::now().time_since_epoch().count();
+	default_random_engine generator(seed1);
+	uniform_int_distribution<int> distribution(params[1], params[2]);
+	for (int i = 0; i < params[0]; i++) {
+		int uso = distribution(generator);
+		uso_IO(pid, uso);
+	}
+}
 
 
 void tasks_init(void) {
@@ -27,4 +38,5 @@ void tasks_init(void) {
 	register_task(TaskCPU, 1);
 	register_task(TaskIO, 2);
 	register_task(TaskAlterno, -1);
+	register_task(TaskConsola, 3);
 }
