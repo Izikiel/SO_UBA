@@ -119,6 +119,7 @@ int SchedRR::tick(int cpu, const enum Motivo m) {
 					first_process = first_process->next;
 				}
 				id_to_process.erase(process->pid);
+				core_per_process.erase(process);
 				delete process;
 				cant_processes--;
 				break;

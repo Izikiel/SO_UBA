@@ -22,6 +22,8 @@ class SchedRR : public SchedBase {
 		virtual void load(int pid);
 		virtual void unblock(int pid);
 		virtual int tick(int cpu, const enum Motivo m);
+
+private:
 		int cores;
 		int cant_processes;
 		circNode* first_process;
@@ -30,11 +32,9 @@ class SchedRR : public SchedBase {
 		map<circNode*, int> core_per_process;
 		map<int, circNode*> id_to_process;
 		vector<circNode*> process_per_core;
-		virtual void assign_next (int cpu, circNode* process);
 		mutex critical_safe;
-
-private:
 		int next(int cpu);
+		virtual void assign_next (int cpu, circNode* process);
 };
 
 #endif
