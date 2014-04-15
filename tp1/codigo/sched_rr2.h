@@ -12,7 +12,7 @@ using namespace std;
 
 typedef uint32_t uint;
 
-enum PROCESS_STATUS { PROCESS_READY_STATUS = 0, PROCESS_WAITING_STATUS = 1,PROCESS_RUNNING_STATUS = 2 };
+enum PROCESS_STATUS { PROCESS_READY_STATUS = 0, PROCESS_WAITING_STATUS = 1, PROCESS_RUNNING_STATUS = 2 , PROCESS_DEAD_STATUS = 3};
 
 enum CPU_STATUS { CPU_IDLE_STATUS = 0, CPU_WORKING_STATUS = 1 };
 
@@ -20,6 +20,7 @@ typedef uint CPU_LOAD;
 
 typedef struct pcb_entry
 {
+	//para funcion stl::find
 	bool operator == (const struct pcb_entry &other) const
     {
         return pid == other.pid;
@@ -31,7 +32,7 @@ typedef struct pcb_entry
 } PCB_ENTRY;
 
 typedef struct cpu_entry{
-
+	//para funcion stl::min_element
 	bool operator<(struct cpu_entry other) const
     {
         return load < other.load;
@@ -55,7 +56,7 @@ class SchedRR2 : public SchedBase {
 		void dispatchProcess(int pid, CPU_ENTRY assignedCore);
 		void exitProcess(int pid);
 		void changeProcessStatus(int pid, PROCESS_STATUS newStatus);
-		int getNextPIDReadyForCpu(int cpuid);
+		int getNextPIDReadyForCpu(int cpuid, list<PCB_ENTRY>::iterator currentProcess);
 		void printProcessTable();
 		void printCpusTable();
 

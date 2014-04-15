@@ -28,21 +28,22 @@ SchedRR2::~SchedRR2() {
 }
 
 void SchedRR2::exitProcess(int pid){
-	PCB_ENTRY process_entry;
-	process_entry.pid=pid;
-	list<PCB_ENTRY>::iterator it = find(process_table->begin(), process_table->end(), process_entry);
-	if(it!=process_table->end()){
-		//obtengo el pcb_entry
-		process_entry = (*it);
-
-		//decremento carga en el cpu asociado al proceso a eliminar
-		((*cpu_table)[process_entry.cpu_affinity_id]).load--;
-		
-		//remuevo el elemento de la tabla de procesos
-		process_table->erase(it);
-	}else{
-		cerr << "[exitProcess - SchedRR2 - el pid " << pid << " no esta en la lista]" << endl;
-	}
+	changeProcessStatus(pid, PROCESS_DEAD_STATUS);
+	//PCB_ENTRY process_entry;
+	//process_entry.pid=pid;
+	//list<PCB_ENTRY>::iterator it = find(process_table->begin(), process_table->end(), process_entry);
+	//if(it!=process_table->end()){
+	//	//obtengo el pcb_entry
+	//	process_entry = (*it);
+//
+//	//	//decremento carga en el cpu asociado al proceso a eliminar
+//	//	((*cpu_table)[process_entry.cpu_affinity_id]).load--;
+//	//	
+//	//	//remuevo el elemento de la tabla de procesos
+//	//	process_table->erase(it);
+//	//}else{
+//	//	cerr << "[exitProcess - SchedRR2 - el pid " << pid << " no esta en la lista]" << endl;
+	//}
 }
 
 void SchedRR2::dispatchProcess(int pid, CPU_ENTRY assignedCore){
@@ -53,7 +54,7 @@ void SchedRR2::dispatchProcess(int pid, CPU_ENTRY assignedCore){
 	process_entry.cpu_affinity_id = assignedCore.id;
 	//aumento carga en el cpu asociado al nuevo proceso
 	((*cpu_table)[process_entry.cpu_affinity_id]).load++;
-	//lo agrego a la lista de procesos
+	//lo agrego a la lista de procesos al final 
 	process_table->push_back(process_entry);
 }
 
@@ -81,45 +82,84 @@ void SchedRR2::unblock(int pid) {
 	changeProcessStatus(pid, PROCESS_READY_STATUS);
 }
 
-int SchedRR2::tick(int cpuid, const enum Motivo m) {	
-	//resto uno y luego evaluo por igualdad con cero...
+int SchedRR2::tick(int cpuid, const enum Motivo m) {
+	//flag para determinar si termino el quantum en este cpu, asumo que no hasta hacer la cuenta.
 	bool terminoQuantum = false;
+	//resto uno y luego evaluo por igualdad con cero...
 	if(--((*cpu_table)[cpuid].remaining_quantum) == 0){
 		//termino el quantum, reseteo el valor a default_quantum.
 		terminoQuantum = true;
 		(*cpu_table)[cpuid].remaining_quantum = ((*cpu_table)[cpuid].default_quantum);
 	}
+
+	//flag para determinar si hay que devolver un nuevo proceso, o sigue el mismo actual
+	//esto va a valer true en todos los casos salvo que haya sido motivo TICK y todavia tenga quantum disponible
+	bool nuevoProceso = true;
+
 	//obtengo el proceso actual en el cpu pasado por parametro
 	int currentpid = current_pid(cpuid);
 	//evaluo el motivo
 	switch(m){
 		case TICK:
 			if(terminoQuantum){
-				//desalojar el proceso(mandarlo a ready)
-				changeProcessStatus(currentpid, PROCESS_READY_STATUS);	
+				//desalojar el proceso actual del cpu (mandarlo a ready)
+				changeProcessStatus(currentpid, PROCESS_READY_STATUS);
 			}else{
-				//no hacer nada, que siga corriendo en el cpu
+				//no hacer cambio de procesos, que siga corriendo en el cpu hasta que se termine el quantum
+				nuevoProceso = false;
 			}
 			break;
 		case BLOCK:
 			//reseteo el quantum(el que se fue a esperar a I/O perdio su turno ;)
 			(*cpu_table)[cpuid].remaining_quantum = ((*cpu_table)[cpuid].default_quantum);
-			//pongo el proceso en estado waiting
+			//pongo el proceso en estado waiting			
 			changeProcessStatus(currentpid, PROCESS_WAITING_STATUS);
+			//TODO: mandarlo al final de la queue
 			break;
 		case EXIT:
-			//aca se elimina y se le resta al cpu un proceso de la carga total
+			//aca se elimina de la process table y se le resta al cpu un proceso de la carga total
 			exitProcess(currentpid);
 			break;
 	}
-	//TODO:  marcarla como running y devolver la proxima tarea actualmente READY PARA ESTE CORE !!
-	int newPid = getNextPIDReadyForCpu(cpuid);
-	changeProcessStatus(newPid, PROCESS_RUNNING_STATUS);
-	return newPid;
+
+	//si es necesario un nuevo proceso, el flag nuevoProceso es true
+	if(nuevoProceso){
+		//obtener el nuevo proceso ( con estado ready y afinidad para este cpu) de la tabla de procesos
+		PCB_ENTRY process_entry;
+		process_entry.pid = currentpid;
+		list<PCB_ENTRY>::iterator it = find(process_table->begin(), process_table->end(), process_entry);
+		int newPid = getNextPIDReadyForCpu(cpuid, it);
+		//marcar el nuevo proceso como running
+		changeProcessStatus(newPid, PROCESS_RUNNING_STATUS);
+		return newPid;		
+	}else{
+		return currentpid;
+	}
 }
 
-int SchedRR2::getNextPIDReadyForCpu(int cpuid){
-	//busca el proximo proceso en la lista
+int SchedRR2::getNextPIDReadyForCpu(int cpuid, list<PCB_ENTRY>::iterator currentProcess){	
+	//devolver siguiente, el mas cercano hacia adelante a currentProcess, que tenga afinidad cpuid y estado ready
+	int processCount = process_table->size();
+	int i=0;
+	bool foundReadyForCpu = false;
+	while((i<processCount) && (!foundReadyForCpu)){
+		currentProcess++;
+		if(currentProcess == process_table->end()){
+			currentProcess = process_table->begin();
+		}
+
+		if((currentProcess->cpu_affinity_id == cpuid) && (currentProcess->status == PROCESS_READY_STATUS)){
+			foundReadyForCpu=true;
+		}
+
+		i++;
+	}
+	//devuelvo IDLE_TASK en caso que no haya mas procesos ready para este cpu
+	if(foundReadyForCpu){
+		return currentProcess->pid;
+	}else{		
+		return IDLE_TASK;
+	}
 }
 
 void SchedRR2::printProcessTable(){
