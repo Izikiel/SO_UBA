@@ -32,7 +32,6 @@ class SchedEDF : public SchedBase
 
         virtual int find_greater_running(Proc p);
         virtual void change_processes();
-        virtual void update_time();
         virtual void push_pending(Proc p);
         virtual void pop_pending();
 };

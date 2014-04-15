@@ -52,7 +52,7 @@ void SchedEDF::pop_pending()
 void SchedEDF::load(int pid, int deadline)
 {
     critical_safe.lock();
-    Proc new_task(0, deadline, pid);
+    Proc new_task(deadline, pid);
 
     if (!free_cores.empty()) {
         int core = free_cores.front();
@@ -84,15 +84,6 @@ void SchedEDF::unblock(int pid)
     critical_safe.unlock();
 }
 
-void SchedEDF::update_time()
-{
-    for_each(core_process.begin(),
-    core_process.end(), [](Proc & p) {p.tick();});
-
-    for_each(pending_processes.begin(),
-    pending_processes.end(), [](Proc & p) {p.tick();});
-}
-
 void SchedEDF::change_processes()
 {
     if (!pending_processes.empty()) {
@@ -119,7 +110,6 @@ int SchedEDF::tick(int cpu, const enum Motivo m)
 
     switch (m) {
         case TICK:
-            update_time();
             change_processes();
             break;
 
