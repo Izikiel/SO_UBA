@@ -11,6 +11,7 @@ SchedEDF::SchedEDF(vector<int> argn)
     core_process.clear();
     make_heap(pending_processes.begin(), pending_processes.end());
     total_cores = argn[0];
+    core_process.resize(total_cores);
 
     for (int i = 0; i < total_cores; ++i) {
         core_process[i] = free_proc;
@@ -28,7 +29,7 @@ void SchedEDF::load(int pid)
 int SchedEDF::find_greater_running(Proc p)
 {
     for (int i = 0; i < total_cores; ++i) {
-        if (core_process[i] > p) {
+        if (core_process[i] < p) {
             return i;
         }
     }
@@ -51,7 +52,6 @@ void SchedEDF::pop_pending()
 void SchedEDF::load(int pid, int deadline)
 {
     critical_safe.lock();
-    pid_start[pid] = 0;
     Proc new_task(0, deadline, pid);
 
     if (!free_cores.empty()) {
@@ -86,10 +86,8 @@ void SchedEDF::unblock(int pid)
 
 void SchedEDF::update_time()
 {
-    for (map<int, int>::iterator i = pid_start.begin();
-            i != pid_start.end(); ++i) {
-        i->second++;
-    }
+    for_each(core_process.begin(),
+    core_process.end(), [](Proc & p) {p.tick();});
 
     for_each(pending_processes.begin(),
     pending_processes.end(), [](Proc & p) {p.tick();});
@@ -117,7 +115,7 @@ void SchedEDF::change_processes()
 int SchedEDF::tick(int cpu, const enum Motivo m)
 {
     critical_safe.lock();
-    int pid = current_pid(cpu);
+    int pid = core_process[cpu].get_pid();
 
     switch (m) {
         case TICK:
@@ -130,19 +128,29 @@ int SchedEDF::tick(int cpu, const enum Motivo m)
 
             if (!pending_processes.empty()) {
                 core_process[cpu] = pending_processes.front();
+                pid = core_process[cpu].get_pid();
                 pop_pending();
 
             } else {
                 core_process[cpu] = free_proc;
                 free_cores.push(cpu);
+                pid = -1;
             }
 
             break;
 
         case EXIT:
-            core_process[cpu] = free_proc;
-            free_cores.push(cpu);
-            pid_start.erase(pid);
+            if (!pending_processes.empty()) {
+                core_process[cpu] = pending_processes.front();
+                pid = core_process[cpu].get_pid();
+                pop_pending();
+
+            } else {
+                core_process[cpu] = free_proc;
+                free_cores.push(cpu);
+                pid = -1;
+            }
+
             break;
 
         default:
@@ -151,5 +159,5 @@ int SchedEDF::tick(int cpu, const enum Motivo m)
 
     critical_safe.unlock();
 
-    return 0;
+    return pid;
 }
