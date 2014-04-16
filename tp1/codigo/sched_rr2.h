@@ -2,7 +2,8 @@
 #define __SCHED_RR2__
 
 #include <vector>
-#include <deque>
+#include <queue>
+#include <unordered_map>
 #include <algorithm>
 #include <stdint.h>
 #include <iostream>
@@ -11,58 +12,65 @@
 using namespace std;
 
 typedef uint32_t uint;
-
-enum PROCESS_STATUS { PROCESS_READY_STATUS = 0, PROCESS_WAITING_STATUS = 1, PROCESS_RUNNING_STATUS = 2};
-
-enum CPU_STATUS { CPU_IDLE_STATUS = 0, CPU_WORKING_STATUS = 1 };
-
-typedef uint CPU_LOAD;
+typedef uint CORE_LOAD;
 
 typedef struct pcb_entry {
-    //para funcion stl::find
-    bool operator == (const struct pcb_entry &other) const
+    
+    bool operator == (const struct pcb_entry other) const
     {
         return pid == other.pid;
     }
 
+    //necesario para indexar el map de waiting con la PK pid.
     uint pid;
-    enum PROCESS_STATUS status;
-    uint cpu_affinity_id;
+    //necerario para indexar la tabla de cores cuando se desbloquea de waiting y debe ser encolado
+    //o cuando se modifica el load de un core
+    uint core_affinity;
 } PCB_ENTRY;
 
-typedef struct cpu_entry {
-    //para funcion stl::min_element
-    bool operator<(struct cpu_entry other) const
+typedef struct core_entry {
+    
+    //sirve para obtener el core con menos carga con la funcion min_element de c++
+    bool operator<(struct core_entry &other) const
     {
         return load < other.load;
     }
 
-    uint default_quantum;
+    //id del core, sirve para identificar el core al asignar afinidades a los procesos
     uint id;
+    //quantum por default para cada proceso en este core
+    uint default_quantum;
+    //quantum restante en este core
     uint remaining_quantum;
-    enum CPU_STATUS status;
-    CPU_LOAD load;
-} CPU_ENTRY;
-
+    //cantidad de procesos entre BLOCKED + RUNNING + READY en este core
+    CORE_LOAD load;
+    //cola de procesos ready asociada al core
+    queue<PCB_ENTRY> *ready_queue;
+    //running process
+    PCB_ENTRY running_process;
+} CORE_ENTRY;
 
 class SchedRR2 : public SchedBase
 {
     public:
+        //constructor y destructor
         SchedRR2(std::vector<int> argn);
         ~SchedRR2();
+        //metodos publicos que deben implementarse por interfaz
         void load(int pid);
         void unblock(int pid);
-        int tick(int cpu, const enum Motivo m);
-        void dispatchProcess(int pid, CPU_ENTRY assignedCore);
-        void exitProcess(int pid);
-        void changeProcessStatus(int pid, PROCESS_STATUS newStatus);
-        int getNextPIDReadyForCpu(int cpuid, deque<PCB_ENTRY>::iterator currentProcess);
-        void printProcessTable();
-        void printCpusTable();
-
+        int tick(int core, const enum Motivo m);
     private:
-        vector<CPU_ENTRY> *cpu_table;
-        deque<PCB_ENTRY> *process_table;
+        //atributos
+        vector<CORE_ENTRY> *core_table;  
+        //tabla comun de procesos en espera  
+        unordered_map<uint, PCB_ENTRY> *waiting_table;//<pid, PCB_ENTRY>
+        //IDLE_PCB static template
+        static PCB_ENTRY IDLE_PCB;        
+        
+        //metodos privados
+        void dispatchProcess(int pid, CORE_ENTRY assignedCore);
+        void finalizeProcess(PCB_ENTRY targetProcess);
 };
 
 #endif
