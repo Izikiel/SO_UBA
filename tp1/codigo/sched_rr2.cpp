@@ -138,6 +138,8 @@ int SchedRR2::tick(int coreid, const enum Motivo motivo)
         //elegir un nuevo proceso
         if(!((*core_table)[coreid]).ready_queue->empty()){
             new_process = ((*core_table)[coreid]).ready_queue->front();
+            //desencolo proceso!
+            ((*core_table)[coreid]).ready_queue->pop();
         }        
 
         //actualizar el proceso actual
