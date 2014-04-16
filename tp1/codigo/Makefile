@@ -1,5 +1,5 @@
 export LC_ALL=C
-CXXFLAGS= -Wall -pedantic -g -ggdb
+CXXFLAGS= -Wall -pedantic -g -ggdb -std=c++11
 LDFLAGS= -lpthread
 
 OBJS=main.o simu.o basesched.o basetask.o tasks.o sched_rr.o sched_fcfs.o sched_rr2.o sched_edf.o
@@ -22,6 +22,7 @@ sched_edf.o: sched_edf.cpp sched_edf.h basesched.h
 simu.o: simu.cpp simu.h basetask.h basesched.h
 simusched.o: simusched.cpp basetask.h basesched.h tasks.h
 tasks.o: tasks.cpp tasks.h basetask.h
+proc.o: proc.h
 
 .PHONY: clean
 clean:
