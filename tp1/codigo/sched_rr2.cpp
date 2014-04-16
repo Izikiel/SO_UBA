@@ -85,6 +85,7 @@ void SchedRR2::unblock(int pid)
     //mueve el proceso identificado con pid de la tabla global waiting a la cola ready del core correspondiente
     //tupla <pid, PCB_ENTRY>, entonces lo de aca abajo me devuelve un PCB_ENTRY
     PCB_ENTRY process_entry = (*waiting_table)[pid];
+    waiting_table->erase(pid);
     ((*core_table)[process_entry.core_affinity]).ready_queue->push(process_entry);
 }
 
