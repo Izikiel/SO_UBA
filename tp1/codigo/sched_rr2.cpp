@@ -96,9 +96,7 @@ int SchedRR2::tick(int coreid, const enum Motivo motivo)
 
     //resto uno y luego evaluo por igualdad con cero...
     if (--((*core_table)[coreid].remaining_quantum) == 0) {
-        //termino el quantum, reseteo el valor a default_quantum.
-        terminoQuantum = true;
-        (*core_table)[coreid].remaining_quantum = ((*core_table)[coreid].default_quantum);
+        terminoQuantum = true;        
     }
 
     //flag para determinar si hay que devolver un nuevo proceso, o sigue el mismo actual
@@ -120,8 +118,6 @@ int SchedRR2::tick(int coreid, const enum Motivo motivo)
             }
             break;
         case BLOCK:
-            //reseteo el quantum(el que se fue a esperar a I/O perdio su turno ;)
-            (*core_table)[coreid].remaining_quantum = ((*core_table)[coreid].default_quantum);
             //desalojo el running_process y lo pongo en la tabla global waiting
             (*waiting_table)[currentpid] = running_process;
             break;
@@ -135,6 +131,10 @@ int SchedRR2::tick(int coreid, const enum Motivo motivo)
     if (nuevoProceso) {
         //asumo que no hay ninguno pendiente en la cola ready y devuelvo la idle
         PCB_ENTRY new_process = SchedRR2::IDLE_PCB;
+        
+        //reseteo el quantum
+        (*core_table)[coreid].remaining_quantum = ((*core_table)[coreid].default_quantum);
+
         //elegir un nuevo proceso
         if(!((*core_table)[coreid]).ready_queue->empty()){
             new_process = ((*core_table)[coreid]).ready_queue->front();
