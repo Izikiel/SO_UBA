@@ -93,12 +93,8 @@ void SchedRR2::unblock(int pid)
 int SchedRR2::tick(int coreid, const enum Motivo motivo)
 {
     //flag para determinar si termino el quantum en este core, asumo que no hasta hacer la cuenta.
-    bool terminoQuantum = false;
-
     //resto uno y luego evaluo por igualdad con cero...
-    if (--((*core_table)[coreid].remaining_quantum) == 0) {
-        terminoQuantum = true;
-    }
+    bool terminoQuantum = (--((*core_table)[coreid].remaining_quantum) == 0);
 
     //flag para determinar si hay que devolver un nuevo proceso, o sigue el mismo actual
     //esto va a valer true en todos los casos salvo que haya sido motivo TICK y todavia tenga quantum disponible el core

@@ -57,9 +57,9 @@ class SchedRR2 : public SchedBase
         SchedRR2(std::vector<int> argn);
         ~SchedRR2();
         //metodos publicos que deben implementarse por interfaz
-        void load(int pid);
-        void unblock(int pid);
-        int tick(int core, const enum Motivo m);
+        virtual void load(int pid);
+        virtual void unblock(int pid);
+        virtual int tick(int core, const enum Motivo m);
     private:
         //atributos
         vector<CORE_ENTRY> *core_table;  
