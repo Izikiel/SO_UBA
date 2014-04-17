@@ -22,7 +22,7 @@ typedef struct pcb_entry {
     }
 
     //necesario para indexar el map de waiting con la PK pid.
-    uint pid;
+    int pid;
     //necerario para indexar la tabla de cores cuando se desbloquea de waiting y debe ser encolado
     //o cuando se modifica el load de un core
     uint core_affinity;
@@ -64,7 +64,7 @@ class SchedRR2 : public SchedBase
         //atributos
         vector<CORE_ENTRY> *core_table;  
         //tabla comun de procesos en espera  
-        unordered_map<uint, PCB_ENTRY> *waiting_table;//<pid, PCB_ENTRY>
+        unordered_map<int, PCB_ENTRY> *waiting_table;//<pid, PCB_ENTRY>
         //IDLE_PCB static template
         static PCB_ENTRY IDLE_PCB;        
         

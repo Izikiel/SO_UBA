@@ -17,16 +17,17 @@ PCB_ENTRY SchedRR2::IDLE_PCB = createIdlePCB();
 SchedRR2::SchedRR2(vector<int> argn)
 {
     //tabla de cores
+    int coreCount = argn[0];
     this->core_table = new vector<CORE_ENTRY>();
-    this->core_table->reserve(argn.size());//evito redimensionamientos.
+    this->core_table->reserve(coreCount);//evito redimensionamientos.
 
-    for (uint j = 0; j < argn.size(); j++) {
+    for (int j = 1; j <= coreCount; j++) {
 		//inicializo el core_entry
 		CORE_ENTRY core_entry;
 	        //notar que puedo indexar los cores por el id en la tabla de cores.
-		    core_entry.id = j;
+		    core_entry.id = j-1;
 		    core_entry.default_quantum = argn[j];
-		    core_entry.remaining_quantum = 0;
+		    core_entry.remaining_quantum = argn[j];
 		    core_entry.load = 0;
             core_entry.running_process = IDLE_PCB;
 		    //cola de procesos ready por core
@@ -36,7 +37,7 @@ SchedRR2::SchedRR2(vector<int> argn)
     }
 
     //tabla global de procesos waiting
-    this->waiting_table = new unordered_map<uint, PCB_ENTRY>();//<pid, PCB_ENTRY>
+    this->waiting_table = new unordered_map<int, PCB_ENTRY>();//<pid, PCB_ENTRY>
 }
 
 SchedRR2::~SchedRR2()
