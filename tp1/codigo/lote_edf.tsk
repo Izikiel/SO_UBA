@@ -1,0 +1,7 @@
+$6
+TaskCPU 5
+$20
+TaskIO 3 4
+@10:
+$30
+TaskCPU 10
