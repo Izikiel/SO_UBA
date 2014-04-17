@@ -57,7 +57,7 @@ void SchedRR2::finalizeProcess(PCB_ENTRY targetProcess)
     ((*core_table)[targetProcess.core_affinity]).load--;
 }
 
-void SchedRR2::dispatchProcess(int pid, CORE_ENTRY assignedCore)
+void SchedRR2::admitProcess(int pid, CORE_ENTRY assignedCore)
 {
 	//inicializo la PCB
     PCB_ENTRY process_entry;
@@ -77,7 +77,7 @@ void SchedRR2::load(int pid)
     //pasar la funcion comparadora por puntero era un dolor de...dientes...terrible de C++
     //asi que esta el operator < que compara por el atributo load en el .h en el struct,
     CORE_ENTRY assignedCore = *(min_element(core_table->begin(), core_table->end()));//min_element me devuelve el iterador, tengo que desreferenciar
-    this->dispatchProcess(pid, assignedCore);//la dispatcheo con afinidad unica a el core asignado
+    this->admitProcess(pid, assignedCore);//lo admito con afinidad unica a el core asignado
 }
 
 void SchedRR2::unblock(int pid)

@@ -69,7 +69,7 @@ class SchedRR2 : public SchedBase
         static PCB_ENTRY IDLE_PCB;        
         
         //metodos privados
-        void dispatchProcess(int pid, CORE_ENTRY assignedCore);
+        void admitProcess(int pid, CORE_ENTRY assignedCore);
         void finalizeProcess(PCB_ENTRY targetProcess);
 };
 
