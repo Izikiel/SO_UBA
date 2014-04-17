@@ -10,7 +10,40 @@
 #include "basesched.h"
 
 using namespace std;
+/**
+    Sea n_cores la cantidad de cores:
+    Estructuras de datos:
+        - Una tabla vector de n_cores core_entry
+        - Un mapa de <pid_t, PCB_ENTRY> denotando 
+        * PCB_ENTRY:
+            - operador == comparacion por pid
+            - int pid: denota el PID del proceso
+            - uint core_affinity: denota el core fijo asignado a este proceso durante su ciclo de vida
+        * CORE_ENTRY:
+            - operador < comparacion por load
+            - uint id: id del core, sirve para identificar el core al asignar afinidades a los procesos
+            - uint default_quantum: quantum por default para cada proceso en este core
+            - uint remaining_quantum: quantum restante en este core
+            - CORE_LOAD load: cantidad de procesos entre BLOCKED + RUNNING + READY en este core
+            - queue<PCB_ENTRY> *ready_queue: cola de procesos ready asociada al core
+            - PCB_ENTRY running_process: running process actual de este core
 
+    Funcionamiento del load balancing:
+        Cuando una tarea es cargada mediante el metodo load(...); el scheduler se fija cual es el core con menor 
+        carga de trabajo (operador < del struct CORE_ENTRY) y admite el proceso en la cola FIFO del core elegido,
+        aumentando el load en dicho core. 
+    Inicializacion:
+        Todos los cores comienzan con load 0, los quantums completos y running_process en la IDLE_PCB(atributo estatico de clase)            
+    Finalizacion:
+        Al finalizar un proceso se le resta una unidad al load de su core asociado
+    Desbloqueo:
+        Se mueven las tareas de la tabla global waiting_table a la cola ready de su core asociado.
+    Consumo de procesos:
+        Cada core selecciona con modelo round robin un proceso y lo asigna a running_process mientras corre, en la cola
+        de cada core quedan SOLAMENTE procesos READY, ni RUNNING ni BLOCKED por IO.
+        Cuando se termina el quantum, o cuando un proceso pide IO, o termina con EXIT son desalojados del core y este toma un nuevo proceso
+        o IDLE_PCB si no hay ninguno en su cola ready.
+*/
 typedef uint32_t uint;
 typedef uint CORE_LOAD;
 
