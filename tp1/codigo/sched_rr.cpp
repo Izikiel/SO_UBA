@@ -11,7 +11,6 @@ SchedRR::SchedRR(vector<int> argn)
     // Round robin recibe la cantidad de cores y sus cpu_quantum por parámetro
     // cout << endl;
     // cout << "QUIERE CONSTRUIR!" << endl;
-    first_process = new circNode;
     cores = argn[0];
     cant_processes = 0;
     cores_quantums.clear();
@@ -44,6 +43,7 @@ void SchedRR::load(int pid)
 
     if (cant_processes == 0)  {
         // cout << "FIRST!" << endl;
+        first_process = new circNode;
         first_process->pid = pid;
         first_process->prev = first_process;
         first_process->next = first_process;
