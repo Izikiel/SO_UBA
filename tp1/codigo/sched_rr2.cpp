@@ -97,11 +97,12 @@ int SchedRR2::tick(int coreid, const enum Motivo motivo)
 
     //resto uno y luego evaluo por igualdad con cero...
     if (--((*core_table)[coreid].remaining_quantum) == 0) {
-        terminoQuantum = true;        
+        terminoQuantum = true;
     }
 
     //flag para determinar si hay que devolver un nuevo proceso, o sigue el mismo actual
     //esto va a valer true en todos los casos salvo que haya sido motivo TICK y todavia tenga quantum disponible el core
+    //voy a escribir aunque sea redundante como queda el valor en casa caso por motivos de legibilidad
     bool nuevoProceso = true;
 
     //obtengo el proceso actual en el core pasado por parametro
@@ -110,43 +111,64 @@ int SchedRR2::tick(int coreid, const enum Motivo motivo)
 
     switch (motivo) {
         case TICK:
-            if (terminoQuantum) {
-                //mando el proceso a la cola ready
-                ((*core_table)[coreid]).ready_queue->push(running_process);
-            } else {
-                //que siga corriendo en el core hasta que se termine el quantum
-                nuevoProceso = false;
+            if(currentpid != IDLE_TASK){
+                //el core esta corriendo una tarea real, no la IDLE_TASK
+                if (terminoQuantum) {
+                    //como termino el quantum(y no esta corriendo la IDLE_TASK), 
+                    //hay que desalojar al proceso actual y mandarlo a la cola ready
+                    ((*core_table)[coreid]).ready_queue->push(running_process);
+                    //se debe seleccionar un nuevo proceso (si existe, sino la IDLE_TASK)
+                    nuevoProceso = true;
+                } else {
+                    //todavia hay quantum, y esta corriendo una tarea real, dejar
+                    //que siga corriendo en el core hasta que se termine el quantum
+                    nuevoProceso = false;
+                }                
+            }else{
+                //el core esta corriendo la tarea idle, se debe seleccionar un nuevo
+                //proceso si existe, o en otro caso la IDLE_TASK nuevamente
+                nuevoProceso = true;
             }
             break;
         case BLOCK:
+            //asumimos que la tarea IDLE_TASK no puede enviar BLOCK ni EXIT        
             //desalojo el running_process y lo pongo en la tabla global waiting
             (*waiting_table)[currentpid] = running_process;
+            //seleccionamos (si existe, sino la IDLE_TASK) otro proceso para utilizar el core
+            nuevoProceso = true;
             break;
         case EXIT:
+            //asumimos que la tarea IDLE_TASK no puede enviar BLOCK ni EXIT        
             //decrementa el load en el core
             finalizeProcess(running_process);
+            nuevoProceso = true;
             break;
     }
 
     //si es necesario un nuevo proceso, el flag nuevoProceso es true
     if (nuevoProceso) {
-        //asumo que no hay ninguno pendiente en la cola ready y devuelvo la idle
+        //asumo que si no hay ninguno pendiente en la cola ready devuelvo la idle
         PCB_ENTRY new_process = SchedRR2::IDLE_PCB;
-        
-        //reseteo el quantum
-        (*core_table)[coreid].remaining_quantum = ((*core_table)[coreid].default_quantum);
 
         //elegir un nuevo proceso
         if(!((*core_table)[coreid]).ready_queue->empty()){
+            //pop no me devuelve el front, asi que lo tomo y despues lo desencolo.
             new_process = ((*core_table)[coreid]).ready_queue->front();
             //desencolo proceso!
             ((*core_table)[coreid]).ready_queue->pop();
-        }        
+        }else{//redundante pero escribo para mejor legibilidad
+            new_process = SchedRR2::IDLE_PCB;
+        }
 
         //actualizar el proceso actual
         ((*core_table)[coreid]).running_process = new_process;
+
+        //reseteo el quantum del core para el nuevo proceso
+        (*core_table)[coreid].remaining_quantum = ((*core_table)[coreid].default_quantum);
+        
         return new_process.pid;
     } else {
+        //esto solo ocurre en el caso que vale (currentpid != IDLE_TASK) && (!terminoQuantum)
         return currentpid;
     }
 }
