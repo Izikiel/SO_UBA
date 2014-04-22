@@ -51,7 +51,6 @@ void TaskBatch(int pid, vector<int> params) { // params: total_cpu, cant_bloqueo
 	sort(moments.begin(), moments.end());
 	int act_moment = 0;
 	for (i = 0; i < cant_bloqueos; i++) {
-		cout << moments[i] << endl;
 		if (act_moment != moments[i]) {
 			uso_CPU(pid, moments[i]-act_moment);
 		}
