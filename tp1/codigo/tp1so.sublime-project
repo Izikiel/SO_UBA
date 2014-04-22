@@ -1,0 +1,23 @@
+{
+	"folders":
+	[
+		{
+			"path": "/home/izikiel/so/SO_UBA/tp1/codigo"
+		}
+	],
+	"settings":
+		{
+			"sublimegdb_workingdir": "${folder:${project_path:simusched}}",
+			"sublimegdb_commandline":"gdb --interpreter=mi --args ./simusched lote_edf2.tsk 1 1 1 SchedEDF"
+		},
+    "build_systems":
+    [
+        {
+    		"name": "TP1SO",
+        	"cmd": ["make", "-j", "4", "new"],
+    		"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+    		"working_dir": "${file_path}",
+    		"selector": "source.cpp"
+        }
+    ]
+}

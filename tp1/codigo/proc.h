@@ -7,10 +7,24 @@ class Proc
         ~Proc() {};
         bool operator >(Proc b) const
         {
+            if (!get_deadline() and b.get_deadline()) {
+                return false;
+
+            } else if (!b.get_deadline() and get_deadline()) {
+                return true;
+            }
+
             return get_deadline() < b.get_deadline();
         }
         bool operator <(Proc b) const
         {
+            if (!get_deadline() and b.get_deadline()) {
+                return true;
+
+            } else if (!b.get_deadline() and get_deadline()) {
+                return false;
+            }
+
             return get_deadline() > b.get_deadline();
         }
         bool operator ==(Proc b) const

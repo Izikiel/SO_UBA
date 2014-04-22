@@ -1,0 +1,2201 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"cant",
+				"cant_processes"
+			],
+			[
+				"process",
+				"process"
+			],
+			[
+				"i",
+				"i"
+			],
+			[
+				"ge",
+				"get_deadline"
+			],
+			[
+				"pri",
+				"priority"
+			],
+			[
+				"st",
+				"struct	struct"
+			],
+			[
+				"pe",
+				"pending_processes"
+			],
+			[
+				"co",
+				"const"
+			],
+			[
+				"pen",
+				"pending_processes"
+			],
+			[
+				"to",
+				"total_cores"
+			],
+			[
+				"for",
+				"for	For Loop"
+			],
+			[
+				"sw",
+				"swap_chance"
+			],
+			[
+				"rem",
+				"remaining_pend"
+			],
+			[
+				"pid",
+				"pid"
+			],
+			[
+				"pi",
+				"pid_start"
+			],
+			[
+				"Lo",
+				"LOCK"
+			],
+			[
+				"U",
+				"unlock"
+			],
+			[
+				"def",
+				"def	#ifndef … #define … #endif"
+			],
+			[
+				"lo",
+				"lock"
+			],
+			[
+				"de",
+				"def	#ifndef … #define … #endif"
+			],
+			[
+				"core",
+				"core_process"
+			],
+			[
+				"re",
+				"return"
+			],
+			[
+				"cores",
+				"cores_quantums"
+			],
+			[
+				"cor",
+				"core_per_process"
+			],
+			[
+				"proces",
+				"process"
+			],
+			[
+				"Tas",
+				"TaskConsola"
+			],
+			[
+				"scrol",
+				"scroll_bar_data_vertical"
+			],
+			[
+				"prce",
+				"process_count"
+			],
+			[
+				"my",
+				"my_name"
+			],
+			[
+				"my_",
+				"my_name_size"
+			],
+			[
+				"proce",
+				"process_count"
+			],
+			[
+				"myna",
+				"my_name_size"
+			],
+			[
+				"pro",
+				"procinfo"
+			],
+			[
+				"err",
+				"error_count"
+			],
+			[
+				"ui",
+				"uint8_t"
+			],
+			[
+				"sen",
+				"send_ipi_ap"
+			],
+			[
+				"in",
+				"inc	#include \"…\""
+			],
+			[
+				"a",
+				"a"
+			],
+			[
+				"kernel",
+				"kernel_size"
+			],
+			[
+				"siz",
+				"kernel_size"
+			],
+			[
+				"link",
+				"link_script"
+			],
+			[
+				"clear",
+				"clear_screen"
+			],
+			[
+				"pr",
+				"print_string"
+			],
+			[
+				"ou",
+				"Output2"
+			],
+			[
+				"gro",
+				"Group"
+			],
+			[
+				"pa",
+				"Pair"
+			],
+			[
+				"mac",
+				"Match"
+			],
+			[
+				"star",
+				"start_val"
+			],
+			[
+				"start",
+				"start"
+			],
+			[
+				"fac",
+				"factor_address"
+			],
+			[
+				"compl",
+				"Complex"
+			],
+			[
+				"no",
+				"n_o2"
+			],
+			[
+				"n",
+				"n_o2"
+			],
+			[
+				"u",
+				"uint32_t"
+			],
+			[
+				"ff",
+				"test_fft_mono"
+			],
+			[
+				"ver",
+				"verfiy_fft"
+			],
+			[
+				"In",
+				"Input"
+			],
+			[
+				"m_",
+				"m_re"
+			],
+			[
+				"O",
+				"Output2"
+			],
+			[
+				"gene",
+				"generate_fft_array"
+			],
+			[
+				"fft",
+				"fft_code"
+			],
+			[
+				"fi",
+				"finish_copy"
+			],
+			[
+				"inte",
+				"interrupt_finished"
+			],
+			[
+				"io",
+				"ioapic"
+			],
+			[
+				"iop",
+				"ioapic"
+			],
+			[
+				"ioap",
+				"ioapic_entry"
+			],
+			[
+				"confi",
+				"configure_ioapic"
+			],
+			[
+				"ker",
+				"KERNEL_INT_GATE_TYPE"
+			],
+			[
+				"idtentr",
+				"IDT_ENTRY"
+			],
+			[
+				"uin",
+				"uint32_t"
+			],
+			[
+				"do",
+				"done"
+			],
+			[
+				"ke",
+				"KERNEL_STACK_PTR_AP11"
+			],
+			[
+				"0x10",
+				"0x0000000001000000"
+			],
+			[
+				"0x0b",
+				"0x0000000000b00000"
+			],
+			[
+				"me",
+				"MEDIR_TIEMPO_STOP"
+			],
+			[
+				"Me",
+				"MEDIR_TIEMPO_STOP"
+			],
+			[
+				"l",
+				"len"
+			],
+			[
+				"sta",
+				"start_copy_address"
+			],
+			[
+				"prin",
+				"print_string"
+			],
+			[
+				"clea",
+				"clear_screen"
+			],
+			[
+				"inter",
+				"interrupt_base_msg"
+			],
+			[
+				"bad",
+				"bad_sort"
+			],
+			[
+				"numb",
+				"number_string"
+			],
+			[
+				"str",
+				"string"
+			],
+			[
+				"lin",
+				"line_length"
+			],
+			[
+				"li",
+				"line_length"
+			],
+			[
+				"gru",
+				"grub_usb"
+			],
+			[
+				"bi",
+				"bin64"
+			],
+			[
+				"ap",
+				"ap_full_code"
+			],
+			[
+				"gr",
+				"grub_usb"
+			],
+			[
+				"sl",
+				"sleep_ap"
+			],
+			[
+				"inc",
+				"inc	#include \"…\""
+			],
+			[
+				"as",
+				"assign"
+			],
+			[
+				"kern",
+				"KERNEL_STACK_PTR_AP2"
+			],
+			[
+				"imp",
+				"imprimir_texto_mp"
+			],
+			[
+				"selec",
+				"selectores"
+			],
+			[
+				"0x",
+				"0x00CF9A00"
+			],
+			[
+				"x",
+				"xchg"
+			],
+			[
+				"0x0",
+				"0x00CF9a00"
+			],
+			[
+				"lim",
+				"limit_merge_reverse"
+			],
+			[
+				"arr",
+				"arr_len"
+			],
+			[
+				"startme",
+				"start_merge"
+			],
+			[
+				"uit",
+				"uint32_t"
+			],
+			[
+				"uint",
+				"uint8_t"
+			],
+			[
+				"impr",
+				"imprimir_texto_ml"
+			],
+			[
+				"array",
+				"array_global"
+			],
+			[
+				"ARRA",
+				"array_global"
+			],
+			[
+				"ar",
+				"array"
+			],
+			[
+				"stat",
+				"start_point"
+			],
+			[
+				"arra",
+				"array_global"
+			],
+			[
+				"hal",
+				"half1"
+			],
+			[
+				"tr",
+				"trim_string"
+			],
+			[
+				"bes",
+				"best_begin"
+			],
+			[
+				"ra",
+				"radix_sort"
+			],
+			[
+				"if",
+				"ifmain	if __name__ == '__main__'"
+			],
+			[
+				"of",
+				"offset_table"
+			],
+			[
+				"el",
+				"elf_i386"
+			],
+			[
+				"fil",
+				"filter_less"
+			],
+			[
+				"filte",
+				"filter_primes"
+			],
+			[
+				"num",
+				"numbers"
+			],
+			[
+				"stri",
+				"string_vals"
+			],
+			[
+				"tiene",
+				"tiene_numeros"
+			],
+			[
+				"valo",
+				"valor_elemento"
+			],
+			[
+				"raiz",
+				"raiz_de_la_suma"
+			],
+			[
+				"lista_co",
+				"lista_colapsar_c"
+			],
+			[
+				"listafil",
+				"lista_filtrar_c"
+			],
+			[
+				"cm",
+				"cmppd"
+			],
+			[
+				"cv",
+				"cvtdq2pd"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "__author__ = 'ezequieldariogambaccini'\n\n\"\"\"\nChosenNaomi > ChosenKen if, and only if, ToldNaomi > ChosenKen, and\nToldNaomi is not equal to the mass of any of Ken's blocks, because he knows that isn't possible.\n\"\"\"\n\ndef do_war(winner, loser, N=0):\n    s_winner = sorted(winner)\n    s_loser = sorted(loser)\n    \n    i = 0\n    while len(s_winner):\n        head = s_winner.pop(0)\n        if head > s_loser[0]:\n            i += 1\n            s_loser.pop(0)\n        else:\n            s_loser.pop(-1)\n\n    return abs(N-i)\n\n\ndef do_war(naomi, ken): #tiene q ganar ken\n    N = len(naomi)\n\n    s_naomi = sorted(naomi)\n    s_ken = sorted(ken)\n\n    i = 0\n    while len(s_ken) > 0:\n        head = s_ken.pop(0)\n        if head > s_naomi[0]: #ordenado, el primero es el mas chico\n            i += 1\n            s_naomi.pop(0)\n        else:\n            s_naomi.pop(-1)\n\n    return N-i\n\n\n\ndef do_deceitful_war(naomi, ken):\n    if max(naomi) < min(ken):\n        return 0\n\n    s_naomi = sorted(naomi)\n    s_ken = sorted(ken)\n\n    best_war = 0\n\n    while len(s_naomi) > 0:\n        head = s_naomi.pop(0)\n        # metodo mas rapido (?)\n        if head > s_ken[0]: #ordenado, el primero es el mas chico\n            best_war += 1\n            s_ken.pop(0)\n        else:\n            s_ken.pop(-1)\n        # metodo mas declarativo :O\n        # if any(map(lambda elem: head > elem, s_ken)):\n        #     best_war += 1\n        #     s_ken.remove(filter(lambda elem: head > elem, s_ken)[0])\n        # else:\n        #     s_ken.remove(max(s_ken))\n        # s_naomi.remove(head)\n\n    return best_war\n\n\ndef SolveWar(in_file, out_file):\n    with open(out_file, \"w\") as out_data:\n        with open(in_file, \"r\") as in_data:\n            T = int(in_data.readline())\n            for x in xrange(T):\n                N = int(in_data.readline())\n                naomi = map(float, in_data.readline().split())\n                ken = map(float, in_data.readline().split())\n                war = do_war(naomi, ken)\n                d_war = do_deceitful_war(naomi, ken)\n                r = \"Case #%d: %d %d\\n\"%(x+1, d_war, war)\n\n                print(r)\n                out_data.write(r)\n\nif __name__ == \"__main__\":\n    # SolveWar(\"D-small-attempt0.in\", \"out_small0.txt\")\n    # SolveWar(\"D-small-attempt1.in\", \"out_small1.txt\")\n    SolveWar(\"D-large.in\", \"out_large.txt\")",
+			"settings":
+			{
+				"buffer_size": 2325,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "main.cpp",
+			"settings":
+			{
+				"buffer_size": 6658,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "sched_edf.h",
+			"settings":
+			{
+				"buffer_size": 978,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Makefile",
+			"settings":
+			{
+				"buffer_size": 884,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "sched_edf.cpp",
+			"settings":
+			{
+				"buffer_size": 3191,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lote_edf2.tsk",
+			"settings":
+			{
+				"buffer_size": 108,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "TP1SO",
+	"command_palette":
+	{
+		"height": 96.0,
+		"selected_items":
+		[
+			[
+				"git push",
+				"Git: Push"
+			],
+			[
+				"gitp ull",
+				"Git: Pull"
+			],
+			[
+				"git com",
+				"Git: Commit"
+			],
+			[
+				"git add ",
+				"Git: Add Current File"
+			],
+			[
+				"sepy",
+				"Set Syntax: Python"
+			],
+			[
+				"gitpush",
+				"Git: Push"
+			],
+			[
+				"git comm",
+				"Git: Commit"
+			],
+			[
+				"git add",
+				"Git: Add..."
+			],
+			[
+				"git chec",
+				"Git: Checkout Current File"
+			],
+			[
+				"gicomm",
+				"Git: Commit"
+			],
+			[
+				"python",
+				"Set Syntax: PythonImproved"
+			],
+			[
+				"stop",
+				"SublimeGDB: Stop Debugging"
+			],
+			[
+				"gdb",
+				"SublimeGDB: Continue"
+			],
+			[
+				"focus",
+				"Origami: Focus on Pane on the Left"
+			],
+			[
+				"origamifile",
+				"Origami: Create Pane with File on the Right"
+			],
+			[
+				"origami",
+				"Origami: Focus on Pane on the Left"
+			],
+			[
+				"git pull",
+				"Git: Pull"
+			],
+			[
+				"git sta",
+				"Git: Status"
+			],
+			[
+				"orgima",
+				"Origami: Zoom Current Pane"
+			],
+			[
+				"list",
+				"Package Control: List Packages"
+			],
+			[
+				"forma",
+				"SublimeAStyleFormatter: Format Current File"
+			],
+			[
+				"form",
+				"SublimeAStyleFormatter: Format Current File"
+			],
+			[
+				"gitsta",
+				"Git: Status"
+			],
+			[
+				"git stat",
+				"Git: Status"
+			],
+			[
+				"pyh",
+				"Set Syntax: Python"
+			],
+			[
+				"git statu",
+				"Git: Status"
+			],
+			[
+				"git addc",
+				"Git: Add Current File"
+			],
+			[
+				"git addcu",
+				"Git: Add Current File"
+			],
+			[
+				"git co",
+				"Git: Commit"
+			],
+			[
+				"dif",
+				"Git: Diff Current File"
+			],
+			[
+				"for",
+				"SublimeAStyleFormatter: Format Current File"
+			],
+			[
+				"check",
+				"Git: Checkout Current File"
+			],
+			[
+				"svn comm",
+				"SVN: Commit…"
+			],
+			[
+				"svne rever",
+				"SVN: (File) Revert"
+			],
+			[
+				"svn",
+				"SVN: (File) Update"
+			],
+			[
+				"svnup",
+				"SVN: Update"
+			],
+			[
+				"fasm",
+				"Set Syntax: Assembly x86 (FASM)"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"nasm",
+				"Set Syntax: NASM"
+			],
+			[
+				"setC",
+				"Set Syntax: C"
+			],
+			[
+				"seimp",
+				"Set Syntax: PythonImproved"
+			],
+			[
+				"pyth",
+				"Set Syntax: Python"
+			],
+			[
+				"nas",
+				"Set Syntax: NASM"
+			],
+			[
+				"gitcomm",
+				"Git: Commit"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"git st",
+				"Git: Status"
+			],
+			[
+				"gista",
+				"Git: Status"
+			],
+			[
+				"git che",
+				"Git: Checkout Current File"
+			],
+			[
+				"git pul",
+				"Git: Pull"
+			],
+			[
+				"fom",
+				"SublimeAStyleFormatter: Format Current File"
+			],
+			[
+				"git sat",
+				"Git: Status"
+			],
+			[
+				"git satu",
+				"Git: Status"
+			],
+			[
+				"git ad",
+				"Git: Add..."
+			],
+			[
+				"gita",
+				"Git: Add..."
+			],
+			[
+				"fomr",
+				"SublimeAStyleFormatter: Format Current File"
+			],
+			[
+				"git check",
+				"Git: Checkout Current File"
+			],
+			[
+				"Mak",
+				"Set Syntax: Makefile"
+			],
+			[
+				"chec",
+				"Git: Checkout Current File"
+			],
+			[
+				"sublre",
+				"SublimeREPL: Python"
+			],
+			[
+				"sublrep",
+				"SublimeREPL: Python"
+			],
+			[
+				"git p",
+				"Git: Pull"
+			],
+			[
+				"gitadd",
+				"Git: Add..."
+			],
+			[
+				"git di",
+				"Git: Diff Current File"
+			],
+			[
+				"gitstat",
+				"Git: Status"
+			],
+			[
+				"gitstatus",
+				"Git: Status"
+			],
+			[
+				"filedi",
+				"FileDiffs: Menu"
+			],
+			[
+				"bash",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"dele",
+				"File: Delete"
+			],
+			[
+				"git add c",
+				"Git: Add Current File"
+			],
+			[
+				"hexv",
+				"Hex Viewer: Toggle Hex View"
+			],
+			[
+				"setpl",
+				"Set Syntax: Plain Text"
+			],
+			[
+				"hex",
+				"Set Syntax: Hex"
+			],
+			[
+				"setnas",
+				"Set Syntax: NASM"
+			],
+			[
+				"senas",
+				"Set Syntax: NASM"
+			],
+			[
+				"setn",
+				"Set Syntax: NASM"
+			],
+			[
+				"setnasm",
+				"Set Syntax: NASM"
+			],
+			[
+				"sen",
+				"Set Syntax: NASM"
+			],
+			[
+				"Make",
+				"Set Syntax: Makefile"
+			],
+			[
+				"setna",
+				"Set Syntax: NASM"
+			],
+			[
+				"s",
+				"SublimeREPL: Clojure"
+			],
+			[
+				"comme",
+				"Toggle Comment"
+			],
+			[
+				"git s",
+				"Git: Status"
+			],
+			[
+				"che",
+				"Git: Checkout Current File"
+			],
+			[
+				"setc",
+				"Set Syntax: C"
+			],
+			[
+				"run",
+				"SublimeREPL: Python - RUN current file"
+			],
+			[
+				"sePyt",
+				"Set Syntax: Python"
+			],
+			[
+				"replpy",
+				"SublimeREPL: Python - RUN current file"
+			],
+			[
+				"seP",
+				"Set Syntax: Python"
+			],
+			[
+				"git status",
+				"Git: Status"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"pdb",
+				"SublimeREPL: Python - PDB current file"
+			],
+			[
+				"insl",
+				"Package Control: Install Package"
+			],
+			[
+				"setpy",
+				"Set Syntax: Python"
+			],
+			[
+				"packin",
+				"Package Control: Install Package"
+			],
+			[
+				"packins",
+				"Package Control: Install Package"
+			],
+			[
+				"git c",
+				"Git: Commit"
+			],
+			[
+				"hask",
+				"Set Syntax: Haskell"
+			],
+			[
+				"filedif",
+				"FileDiffs: Menu"
+			],
+			[
+				"latex",
+				"Set Syntax: LaTeX"
+			],
+			[
+				"sync",
+				"SFTP: Sync Local -> Remote…"
+			],
+			[
+				"syncloca",
+				"SFTP: Sync Local -> Remote…"
+			],
+			[
+				"shell",
+				"SublimeREPL: Shell"
+			],
+			[
+				"upload",
+				"SFTP: Upload Folder"
+			],
+			[
+				"sftp",
+				"SFTP: Sync Local -> Remote…"
+			],
+			[
+				"syncl",
+				"SFTP: Sync Local -> Remote…"
+			],
+			[
+				"synlo",
+				"SFTP: Sync Local -> Remote…"
+			],
+			[
+				"synlocl",
+				"SFTP: Sync Local -> Remote…"
+			],
+			[
+				"remote",
+				"SFTP: Sync Local -> Remote…"
+			],
+			[
+				"newta",
+				"Git: New Tag"
+			],
+			[
+				"git tag",
+				"Git: New Tag"
+			],
+			[
+				"gittag",
+				"Git: Show Tags"
+			],
+			[
+				"git ",
+				"Git: Push Tags"
+			],
+			[
+				"rebu",
+				"CTags: Rebuild Tags"
+			],
+			[
+				"replshe",
+				"SublimeREPL: Shell"
+			],
+			[
+				"filed",
+				"FileDiffs: Menu"
+			],
+			[
+				"origamirigh",
+				"Origami: Create Pane with File on the Right"
+			],
+			[
+				"ori",
+				"Origami: Create Pane on the Right"
+			],
+			[
+				"setdi",
+				"Set Syntax: Diff"
+			],
+			[
+				"brekpo",
+				"SublimeGDB: Open Breakpoint View"
+			],
+			[
+				"gdbop",
+				"SublimeGDB: Open Disassembly View"
+			],
+			[
+				"break",
+				"SublimeGDB: Open Breakpoint View"
+			],
+			[
+				"registe",
+				"SublimeGDB: Open Register View"
+			],
+			[
+				"right",
+				"Origami: Create Pane on the Right"
+			],
+			[
+				"orrig",
+				"Origami: Create Pane on the Right"
+			],
+			[
+				"origri",
+				"Origami: Create Pane on the Right"
+			],
+			[
+				"replsh",
+				"SublimeREPL: Shell"
+			],
+			[
+				"statu",
+				"Git: Status"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 139.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/izikiel/so/SO_UBA/tp1/codigo/tp1so.sublime-project",
+		"/home/izikiel/so/SO_UBA/tp1/codigo/proc.h",
+		"/home/izikiel/so/SO_UBA/tp1/codigo/lote.tsk",
+		"/home/izikiel/so/SO_UBA/tp1/codigo/TaskCPUtest",
+		"/home/izikiel/so/SO_UBA/tp1/codigo/sched_rr.cpp",
+		"/home/izikiel/so/SO_UBA/tp1/codigo/lote_edf2.tsk",
+		"/home/izikiel/so/SO_UBA/tp1/codigo/sched_edf.cpp",
+		"/usr/include/c++/4.8/bits/stl_vector.h",
+		"/home/izikiel/so/SO_UBA/tp1/codigo/lote_edf.tsk",
+		"/home/izikiel/so/SO_UBA/tp1/codigo/lote2.tsk",
+		"/home/izikiel/.config/sublime-text-2/Packages/SublimeGDB/sublimegdb.py",
+		"/home/izikiel/so/SO_UBA/tp1/codigo/sched_rr2.h",
+		"/home/izikiel/so/SO_UBA/tp1/codigo/sched_rr2.cpp",
+		"/home/izikiel/so/SO_UBA/tp1/codigo/simu.cpp",
+		"/home/izikiel/so/SO_UBA/tp1/codigo/sched_edf.h",
+		"/home/izikiel/.cache/.fr-UszgJX/Algoritmos y Estructuras de Datos III/TP1/Problema 2 Sensores defectuosos/sensores.cpp",
+		"/home/izikiel/.config/sublime-text-2/Packages/SublimeAStyleFormatter/SublimeAStyleFormatter.sublime-settings",
+		"/home/izikiel/.config/sublime-text-2/Packages/User/SublimeAStyleFormatter.sublime-settings",
+		"/home/izikiel/so/SO_UBA/tp1/codigo/Makefile",
+		"/home/izikiel/so/SO_UBA/tp1/codigo/sched_rr.h",
+		"/home/izikiel/so/SO_UBA/tp1/codigo/basetask.cpp",
+		"/home/izikiel/algo2/Tp1Algo2/trunk/boceto_tp1_algo2",
+		"/home/izikiel/deliriOS/papers/2014_HPC_deliriOS/2014_delirios.txt",
+		"/home/izikiel/deliriOS/papers/2014_HPC_deliriOS/2014_delirios.tex",
+		"/tmp/sublime-svn-1397239860/SVN",
+		"/home/izikiel/kolibrios/contrib/sdk/sources/Mesa/docs/README.QUAKE",
+		"/home/izikiel/kolibrios/programs/system/board/trunk/board_unique.asm",
+		"/home/izikiel/kolibrios/kernel/trunk/macros.inc",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/bsp_code/Makefile",
+		"/home/izikiel/ejercicios_google/next_integer.py",
+		"/home/izikiel/.bashrc",
+		"/home/izikiel/ejercicios_google/solve_sticks.py",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/bsp_code/bsp.asm",
+		"/home/izikiel/Desktop/intel_multicore-master/juampi_os/src/scrn.c",
+		"/home/izikiel/Desktop/intel_multicore-master/juampi_os/src/utils.c",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/bsp_code/test_code.c",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/fft/fft.c",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/include/bsp_execute_code.h",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/include/ap_execute_code.h",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/grub-init/make_kernel_binary.sh",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/ap_code/update_link_point.py",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/ap_code/linker_script.ld",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/include/defines.h",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/bsp_code/kernel.asm",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/bsp_code/multicore_boot.c",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/include/multicore_common.h",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/common_code/multicore_common.c",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/ap_code/ap_full_code.asm",
+		"/home/izikiel/Desktop/fft_c/match_pair.txt",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/fft/complex.c",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/include/complex.h",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/fft/Makefile",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/ap_code/Makefile",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/include/fft.h",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/common_code/sort_code.c",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/include/tiempo.h",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/bsp_code/mergesort.c",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/fft/sin.asm",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/fft/main.c",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/ap_startup_code/Makefile",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/ap_code/isr.asm",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/include/multicore_boot.h",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/bsp_code/isr.asm",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/include/multicore.h",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/ap_startup_code/ap_startup_code.asm",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/include/isr.h",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/include/idt.h",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/common_code/idt.c",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/ap_code/ap_execute_code.c",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/common_code/isr.asm",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/common_code/init_ioapic.asm",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/bsp_code/multicore.c",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/grub-init/src/loader.asm",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/bsp_code/bsp_execute_code.c",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/common_code/timer.c",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/common_code/ports.c",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/common_code/screen_utils.c",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/common_code/Makefile",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/grub-init/src/kmain.c",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/common_code/i.asm",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/.gitignore",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/include/screen_utils.h",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/common_code/gdt.c",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/ordenar paralelo/test.c",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/common_code/mmu.c",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/grub-init/grub_usb/menu.lst",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/macros/asm_screen_utils.mac",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/include/sort_code.h",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/ap_code/apf.asm",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/bsp_code/bsp_ex.asm",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/ap_code/ap_ex.asm",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/bsp_code/kmain64.c",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/bsp_code/console.c",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/bsp_code/wtf.asm",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/bsp_code/t1.asm",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/bsp_code/t.asm",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/bsp_code/t2.asm",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/bsp_code/utils.c",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/run.sh",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/grub-init/build_for_usb.sh",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/include/console.h",
+		"/media/izikiel/delirios/boot/grub/menu.lst",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/grub-init/Makefile",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/grub-init/copy_modules_usb.sh",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/common_code/deb_sort.asm",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/include/utils.h",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/include/i386.h",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/include/types.h",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/ap_code/ap_execute_code.h",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/include/aux.h",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/test_code_data/test_data.h",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/test_code_data/generate_test_data.py",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/grub-init/build/menu.lst",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/ordenar paralelo/aux.h",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/bsp_code/contextManager.c",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/test_code_data/test_data.c",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/test_code_data/t",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/bsp_code/gdt.c",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/ap_code/ap_startup_code",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/bsp_code/mmu.c",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/include/mmu.h",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/ap_code/ap_startup_code.asm",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/test_code_data/tests.c",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/include/gdt.h",
+		"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits/Makefile",
+		"/home/izikiel/orga2/intel_multicore/juampi_os/build/grub_modules_build/Makefile",
+		"/home/izikiel/orga2/intel_multicore/juampi_os/build/grub_modules_build/ap_startup_code",
+		"/home/izikiel/orga2/intel_multicore/grub-init/src/asm_screen_utils.mac"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"<open folders>",
+			"/home/izikiel/kolibrios",
+			"/home/izikiel/orga2/intel_multicore/DeliriOS_64bits",
+			"/home/izikiel/orga2/intel_multicore/Pure64 v0.5.0 Distribution",
+			"/home/izikiel/orga2/orga2_intel_mp/barrelfish-295f66827693/",
+			"/home/izikiel/orga2/orga2_intel_mp/barrelfish-295f66827693/usr",
+			"/home/izikiel/orga2/tp1bundle/",
+			"/home/izikiel/orga2/tp1bundle/tests/, *.in",
+			"/home/izikiel/orga2/tp1bundle/tests/, *.catedra.out",
+			"/home/izikiel/orga2/tp1bundle/tests/",
+			"/home/izikiel/orga2/tp1bundle/tests/*.catedra.out",
+			"/home/izikiel/orga2/tp1bundle/tests/",
+			"/home/izikiel/orga2/tp1bundle/tests/*.out",
+			"/home/izikiel/orga2/tp1bundle/tests"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"critical_safe",
+			"p",
+			"@",
+			"&&",
+			" &&",
+			"release_core",
+			"if (!pending_processes.empty()) {\n                core_process[cpu] = pending_processes.front();\n                pid = core_process[cpu].get_pid();\n                pop_pending();\n\n            } else {\n                core_process[cpu] = free_proc;\n                free_cores.push(cpu);\n                pid = -1;\n            }",
+			"print",
+			"\n        ",
+			"expand_path",
+			"lista*",
+			"list<PCB_ENTRY>",
+			"list",
+			"vector",
+			"priority",
+			">",
+			"LU",
+			"\n    ",
+			"@",
+			"update_time",
+			"tick",
+			"priority",
+			"start",
+			"free_cores.push(cpu);",
+			"pending_processes.front",
+			"IDLE_TASK",
+			"pid_start",
+			"\n",
+			"block",
+			"$",
+			"free",
+			"Free",
+			"free",
+			"Free",
+			"Free_Proc",
+			"();",
+			"Free",
+			";",
+			"-1",
+			"core_process",
+			"blocked",
+			"CompareProc",
+			")",
+			"priority",
+			"tuple",
+			"Proc",
+			"();\n",
+			"priority",
+			"CompareProc",
+			"pending_processes",
+			"pending_processes.pop();",
+			"push",
+			"make_pa",
+			"pai",
+			"pair",
+			"swap_chance",
+			"CompareCoreProc",
+			"CoreProc",
+			"CompareCoreProc",
+			"CoreProc",
+			"critical_safe",
+			"No_Process",
+			"deadline",
+			"pair<int, Proc>",
+			"get_deadline",
+			"Proc",
+			"p1",
+			"const Proc& p1, ",
+			"deadline",
+			"Motivo",
+			"quantums",
+			"include",
+			"quantums",
+			"cambiarLosTitulosCliente",
+			"Promesaporcumplir",
+			"promesaporcumplir",
+			"=",
+			"agregartitulo",
+			"titulo",
+			"t[0]",
+			"])",
+			"t[0",
+			"primerValorEncontrado",
+			"=",
+			"primervalor",
+			"window",
+			"red",
+			"@@",
+			"draw_text",
+			"new_data",
+			"IMPORT",
+			"draw_cube",
+			"mouse",
+			"MAXSTRINGS",
+			"xstart",
+			"windo",
+			"[scroll",
+			"Scrollbar_ver_draw",
+			"scrollbar_ver_draw",
+			"Scrollbar_ver_draw",
+			"scrollbar_ver_draw",
+			"aScrollbar_ver_draw",
+			"draw_text",
+			".vertical",
+			"vertical",
+			"key",
+			"stil",
+			"draw_w",
+			"MAXSTRINGS",
+			"draw_window",
+			"proc",
+			"draw_window",
+			"scroll",
+			"lang",
+			" '",
+			"inc'\n",
+			"'",
+			"inc'\n",
+			"'",
+			"../../..",
+			"function 9",
+			"close",
+			"function 18, sub",
+			"function 18 ",
+			"window",
+			"center",
+			"function 18",
+			"hs"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"assign_process_core"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 4,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"settings":
+					{
+						"buffer_size": 2325,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1223,
+								1223
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 976.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "main.cpp",
+					"settings":
+					{
+						"buffer_size": 6658,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5760,
+								5760
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3161.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "sched_edf.h",
+					"settings":
+					{
+						"buffer_size": 978,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								814,
+								814
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 162.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Makefile",
+					"settings":
+					{
+						"buffer_size": 884,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								213,
+								213
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Makefile/Makefile.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 54.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "sched_edf.cpp",
+					"settings":
+					{
+						"buffer_size": 3191,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2845,
+								2845
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2019.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 5,
+					"file": "lote_edf2.tsk",
+					"settings":
+					{
+						"buffer_size": 108,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								103,
+								103
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 36.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.5,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.GoSublime-main-output":
+	{
+		"height": 118.0
+	},
+	"output.MarGo-output":
+	{
+		"height": 112.0
+	},
+	"output.exec":
+	{
+		"height": 124.0
+	},
+	"output.git":
+	{
+		"height": 118.0
+	},
+	"output.sftp":
+	{
+		"height": 112.0
+	},
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"proj",
+				"tp1so.sublime-project"
+			],
+			[
+				"schedfpp",
+				"sched_edf.cpp"
+			],
+			[
+				"lote",
+				"lote_edf2.tsk"
+			],
+			[
+				"lo",
+				"lote.tsk"
+			],
+			[
+				"sc",
+				"sched_rr.cpp"
+			],
+			[
+				"rr",
+				"sched_rr.cpp"
+			],
+			[
+				"proc",
+				"proc.h"
+			],
+			[
+				"projec",
+				"tp1so.sublime-project"
+			],
+			[
+				"schedh",
+				"sched_edf.h"
+			],
+			[
+				"make",
+				"Makefile"
+			],
+			[
+				"schedpp",
+				"sched_edf.cpp"
+			],
+			[
+				"schrr2",
+				"sched_rr2.h"
+			],
+			[
+				"simucp",
+				"simu.cpp"
+			],
+			[
+				"schedrr",
+				"sched_rr.cpp"
+			],
+			[
+				"simuc",
+				"simu.cpp"
+			],
+			[
+				"sch",
+				"sched_rr.h"
+			],
+			[
+				"sched_r",
+				"sched_rr.cpp"
+			],
+			[
+				"schedrrh",
+				"sched_rr.h"
+			],
+			[
+				"sched",
+				"sched_rr.h"
+			],
+			[
+				"scdrr",
+				"sched_rr.cpp"
+			],
+			[
+				"edf",
+				"sched_edf.cpp"
+			],
+			[
+				"sched_rr",
+				"sched_rr.h"
+			],
+			[
+				"boxlibma",
+				"programs/develop/libraries/box_lib/branch/box_lib.mac"
+			],
+			[
+				"boxlib",
+				"programs/develop/libraries/box_lib/branch/box_lib.asm"
+			],
+			[
+				"box_lib",
+				"programs/cmm/lib/lib.obj/box_lib.h"
+			],
+			[
+				"quake",
+				"contrib/sdk/sources/Mesa/docs/README.QUAKE"
+			],
+			[
+				"sy",
+				"latest_release/Docs/sysfuncs.txt"
+			],
+			[
+				"run",
+				"latest_release/run_qemu.sh"
+			],
+			[
+				"sysfun",
+				"latest_release/Docs/sysfuncs.txt"
+			],
+			[
+				"macro",
+				"kernel/trunk/macros.inc"
+			],
+			[
+				"apex",
+				"ap_code/ap_execute_code.c"
+			],
+			[
+				"te",
+				"bsp_code/test_code.c"
+			],
+			[
+				"kern",
+				"bsp_code/kernel.asm"
+			],
+			[
+				"bspex",
+				"bsp_code/bsp_execute_code.c"
+			],
+			[
+				"ffc",
+				"fft/fft.c"
+			],
+			[
+				"bsex",
+				"include/bsp_execute_code.h"
+			],
+			[
+				"ffh",
+				"include/fft.h"
+			],
+			[
+				"bsph",
+				"include/bsp_execute_code.h"
+			],
+			[
+				"bspasm",
+				"bsp_code/bsp.asm"
+			],
+			[
+				"apexh",
+				"include/ap_execute_code.h"
+			],
+			[
+				"isr",
+				"ap_code/isr.asm"
+			],
+			[
+				"test",
+				"bsp_code/test_code.c"
+			],
+			[
+				"kerne",
+				"bsp_code/kernel.asm"
+			],
+			[
+				"upda",
+				"ap_code/update_link_point.py"
+			],
+			[
+				"defi",
+				"include/defines.h"
+			],
+			[
+				"ex",
+				"bsp_code/bsp_execute_code.c"
+			],
+			[
+				"full",
+				"ap_code/ap_full_code.asm"
+			],
+			[
+				"tes",
+				"bsp_code/test_code.c"
+			],
+			[
+				"mult",
+				"bsp_code/multicore_boot.c"
+			],
+			[
+				"apfu",
+				"ap_code/ap_full_code.asm"
+			],
+			[
+				"ap",
+				"ap_code/ap_execute_code.c"
+			],
+			[
+				"mulh",
+				"include/multicore_common.h"
+			],
+			[
+				"multcom",
+				"common_code/multicore_common.c"
+			],
+			[
+				"bsp",
+				"bsp_code/bsp_execute_code.c"
+			],
+			[
+				"",
+				"ap_code/ap_execute_code.c"
+			],
+			[
+				"l",
+				"ap_code/linker_script.ld"
+			],
+			[
+				"lin",
+				"ap_code/linker_script.ld"
+			],
+			[
+				"apful",
+				"ap_code/ap_full_code.asm"
+			],
+			[
+				"mat",
+				"match_pair_dual.txt"
+			],
+			[
+				"match",
+				"match_pair.txt"
+			],
+			[
+				"rm",
+				"r_m_sin.txt"
+			],
+			[
+				"mak",
+				"ap_code/Makefile"
+			],
+			[
+				"compl",
+				"fft/complex.c"
+			],
+			[
+				"m",
+				"fft/Makefile"
+			],
+			[
+				"ker",
+				"bsp_code/kernel.asm"
+			],
+			[
+				"ff",
+				"fft/fft.c"
+			],
+			[
+				"fft",
+				"include/fft.h"
+			],
+			[
+				"sin.",
+				"fft/sin.asm"
+			],
+			[
+				"comph",
+				"include/complex.h"
+			],
+			[
+				"defin",
+				"include/defines.h"
+			],
+			[
+				"tiem",
+				"include/tiempo.h"
+			],
+			[
+				"sor",
+				"common_code/sort_code.c"
+			],
+			[
+				"mer",
+				"bsp_code/mergesort.c"
+			],
+			[
+				"main",
+				"fft/main.c"
+			],
+			[
+				"mulbo",
+				"bsp_code/multicore_boot.c"
+			],
+			[
+				"mcom",
+				"common_code/multicore_common.c"
+			],
+			[
+				"mulcom",
+				"common_code/multicore_common.c"
+			],
+			[
+				"multi",
+				"bsp_code/multicore_boot.c"
+			],
+			[
+				"define",
+				"include/defines.h"
+			],
+			[
+				"ts",
+				"bsp_code/test_code.c"
+			],
+			[
+				"apfull",
+				"ap_code/ap_full_code.asm"
+			],
+			[
+				"mul",
+				"include/multicore_boot.h"
+			],
+			[
+				"multic",
+				"include/multicore_common.h"
+			],
+			[
+				"multc",
+				"common_code/multicore_common.c"
+			],
+			[
+				"apexc",
+				"include/ap_execute_code.h"
+			],
+			[
+				"apx",
+				"include/ap_execute_code.h"
+			],
+			[
+				"bsexcc",
+				"bsp_code/bsp_execute_code.c"
+			],
+			[
+				"ken",
+				"bsp_code/kernel.asm"
+			],
+			[
+				"load",
+				"grub-init/src/loader.asm"
+			],
+			[
+				"apsta",
+				"ap_startup_code/ap_startup_code.asm"
+			],
+			[
+				"isras",
+				"common_code/isr.asm"
+			],
+			[
+				"isra",
+				"common_code/isr.asm"
+			],
+			[
+				"mu",
+				"bsp_code/multicore.c"
+			],
+			[
+				"p",
+				"common_code/ports.c"
+			],
+			[
+				"ke",
+				"bsp_code/kernel.asm"
+			],
+			[
+				"ish",
+				"include/isr.h"
+			],
+			[
+				"idt",
+				"common_code/idt.c"
+			],
+			[
+				"star.asm",
+				"ap_startup_code/ap_startup_code.asm"
+			],
+			[
+				"scree",
+				"common_code/screen_utils.c"
+			],
+			[
+				"apst",
+				"ap_startup_code/ap_startup_code.asm"
+			],
+			[
+				"por",
+				"common_code/ports.c"
+			],
+			[
+				"timer",
+				"common_code/timer.c"
+			],
+			[
+				"kman",
+				"grub-init/src/kmain.c"
+			],
+			[
+				"link",
+				"ap_code/linker_script.ld"
+			],
+			[
+				"aps",
+				"ap_startup_code/ap_startup_code.asm"
+			],
+			[
+				"isrh",
+				"include/isr.h"
+			],
+			[
+				"i.",
+				"common_code/i.asm"
+			],
+			[
+				"i.a",
+				"common_code/i.asm"
+			],
+			[
+				"idth",
+				"include/idt.h"
+			],
+			[
+				"k",
+				"bsp_code/kernel.asm"
+			],
+			[
+				"isrm",
+				"common_code/isr.asm"
+			],
+			[
+				"bspe",
+				"bsp_code/bsp_execute_code.c"
+			],
+			[
+				"scre",
+				"common_code/screen_utils.c"
+			],
+			[
+				"mmu",
+				"common_code/mmu.c"
+			],
+			[
+				"scren",
+				"macros/asm_screen_utils.mac"
+			],
+			[
+				"men",
+				"grub-init/grub_usb/menu.lst"
+			],
+			[
+				"tie",
+				"include/tiempo.h"
+			],
+			[
+				"tier",
+				"common_code/timer.c"
+			],
+			[
+				"sort",
+				"include/sort_code.h"
+			],
+			[
+				"kma",
+				"grub-init/src/kmain.c"
+			],
+			[
+				"apfasm",
+				"ap_code/apf.asm"
+			],
+			[
+				"gdt",
+				"common_code/gdt.c"
+			],
+			[
+				"apstar",
+				"ap_startup_code/ap_startup_code.asm"
+			],
+			[
+				"wt",
+				"bsp_code/wtf.asm"
+			],
+			[
+				"t2",
+				"bsp_code/t2.asm"
+			],
+			[
+				"t1",
+				"bsp_code/t1.asm"
+			],
+			[
+				"tas",
+				"bsp_code/t.asm"
+			],
+			[
+				"screh",
+				"include/screen_utils.h"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 220.0,
+	"status_bar_visible": true
+}

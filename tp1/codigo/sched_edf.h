@@ -31,9 +31,10 @@ class SchedEDF : public SchedBase
         int total_cores;
 
         virtual int find_greater_running(Proc p);
-        virtual void change_processes();
+        virtual int change_processes();
         virtual void push_pending(Proc p);
         virtual void pop_pending();
+        virtual int  assign_process_core(int cpu);
 };
 
 
