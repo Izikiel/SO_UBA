@@ -1,0 +1,1 @@
+La propiedad del edf en estos casos (lote_edf.tsk, lote_edf3.tsk) no se mantiene, porque aunque la suma de las tareas y sus deadlines es menor a 2, el scheduler es incapaz de hacer que se cumpla la tarea 3, aun cuando la propiedad del edf debiera ser valida.
