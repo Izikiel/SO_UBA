@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.7.16)  22 APR 2014 13:11
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.7.16)  22 APR 2014 13:24
 entering extended mode
  %&-line parsing enabled.
 **so_tp1.tex
@@ -207,27 +207,27 @@ File: ej4_2.png Graphic file (type png)
 575pt>
 File: TH.jpg Graphic file (type jpg)
 
-<use TH.jpg> <ej8_RR.png, id=15, 1030.85126pt x 217.81375pt>
+<use TH.jpg> [2 <./ej4_1.png (PNG copy)> <./ej4_2.png (PNG copy)>] [3 <./TH.jpg
+>] <ej8_RR.png, id=21, 1030.85126pt x 217.81375pt>
 File: ej8_RR.png Graphic file (type png)
  <use ej8_RR.png>
-<ej8_RR2.png, id=16, 1030.85126pt x 217.81375pt>
+<ej8_RR2.png, id=22, 1030.85126pt x 217.81375pt>
 File: ej8_RR2.png Graphic file (type png)
- <use ej8_RR2.png> [2 <./ej4_1.png (PNG copy)> <./ej4_2.png (PNG copy)>] [3 <./
-TH.jpg> <./ej8_RR.png (PNG copy)> <./ej8_RR2.png (PNG copy)>] [4] (./so_tp1.aux
-) ) 
+ <use ej8_RR2.png> [4 <./ej8_RR.png (PNG copy)> <./ej8_RR2.png (PNG copy)>] (./
+so_tp1.aux) ) 
 Here is how much of TeX's memory you used:
  3004 strings out of 494999
  36434 string characters out of 1180816
- 119032 words of memory out of 3000000
+ 117032 words of memory out of 3000000
  6193 multiletter control sequences out of 15000+50000
  7954 words of font info for 29 fonts, out of 3000000 for 9000
  54 hyphenation exceptions out of 8191
  27i,7n,20p,541b,206s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/sh
-are/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-te
-xlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/fonts/
-type1/public/amsfonts/cm/cmr17.pfb>
-Output written on so_tp1.pdf (4 pages, 140739 bytes).
+</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pf
+b></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/shar
+e/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texl
+ive/fonts/type1/public/amsfonts/cm/cmr17.pfb>
+Output written on so_tp1.pdf (4 pages, 142074 bytes).
 PDF statistics:
  39 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
