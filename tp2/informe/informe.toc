@@ -1,0 +1,4 @@
+\select@language {spanish}
+\contentsline {section}{\numberline {1}Ap\'endice: Entregable}{3}{section.1}
+\contentsline {subsection}{\numberline {1.1}Estructura de directorios}{3}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Compilacion y ejecucion}{3}{subsection.1.2}

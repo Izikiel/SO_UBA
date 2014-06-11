@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -std=c99 -g -Wall -Werror
+CFLAGS = -g -Wall -Werror
 LDFLAGS = -pthread
 
 BINARIES = servidor_mono servidor_multi cliente
@@ -10,7 +10,7 @@ servidor_mono: servidor_mono.c biblioteca.o biblioteca.h
 	$(CC) $(LDFLAGS) $(CFLAGS) servidor_mono.c biblioteca.o -o servidor_mono
 
 servidor_multi: servidor_multi.c biblioteca.o biblioteca.h
-	$(CC) $(LDFLAGS) $(CFLAGS) servidor_multi.c biblioteca.o -o servidor_multi
+	$(CC) $(LDFLAGS) $(CFLAGS) -std=c99 servidor_multi.c biblioteca.o -o servidor_multi
 
 cliente: cliente.c biblioteca.o biblioteca.h
 	$(CC) $(LDFLAGS) $(CFLAGS) cliente.c biblioteca.o -o cliente
