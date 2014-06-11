@@ -3,11 +3,12 @@
 
 #include "biblioteca.h"
 
+/*Estructuras*/
+
 /* Estructura que almacena los datos de una reserva. */
 typedef struct {
 	int posiciones[ANCHO_AULA][ALTO_AULA];
-	int cantidad_de_personas;
-	
+	int cantidad_de_personas;	
 	int rescatistas_disponibles;
 } t_aula;
 
@@ -17,148 +18,54 @@ typedef struct worker_parameters{
 	t_aula *el_aula;
 } t_worker_parameters;
 
-//firma de la funcion worker
+/*Var. globales*/
+pthread_mutex_t mutex_matrix;
+pthread_mutex_t mutex_cant_personas;
+pthread_mutex_t mutex_cant_rescatista;
+
+/*firmas de metodos*/
+void initMutexes();
+static void terminar_servidor_de_alumno(int socket_fd, t_aula *aula, t_persona *alumno);
+void t_aula_iniciar_vacia(t_aula *un_aula);
+bool t_aula_ingresar(t_aula *un_aula, t_persona *alumno);
+void t_aula_liberar(t_aula *un_aula, t_persona *alumno);
+void colocar_mascara(t_aula *el_aula, t_persona *alumno, int socket_fd);
+void *atendedor_de_alumno(int socket_fd, t_aula *el_aula);
 void *new_worker_handler(void *new_client_parameters);
 
-void t_aula_iniciar_vacia(t_aula *un_aula)
-{
-	int i, j;
-	for(i = 0; i < ANCHO_AULA; i++)
-	{
-		for (j = 0; j < ALTO_AULA; j++)
-		{
-			un_aula->posiciones[i][j] = 0;
-		}
-	}
-	
-	un_aula->cantidad_de_personas = 0;
-	
-	un_aula->rescatistas_disponibles = RESCATISTAS;
-}
+/*Impl. de metodos*/
 
-void t_aula_ingresar(t_aula *un_aula, t_persona *alumno)
-{
-	un_aula->cantidad_de_personas++;
-	un_aula->posiciones[alumno->posicion_fila][alumno->posicion_columna]++;
-}
-
-void t_aula_liberar(t_aula *un_aula, t_persona *alumno)
-{
-	un_aula->cantidad_de_personas--;
-	un_aula->posiciones[alumno->posicion_fila][alumno->posicion_columna]--;
+void initMutexes(){
+	pthread_mutex_init(&mutex_matrix, NULL);
+	pthread_mutex_init(&mutex_cant_personas, NULL);
+	pthread_mutex_init(&mutex_cant_rescatista, NULL);	
 }
 
 static void terminar_servidor_de_alumno(int socket_fd, t_aula *aula, t_persona *alumno) {
 	printf("[Thread cliente %d] >> Se interrumpió la comunicación con una consola.\n", socket_fd);
 	close(socket_fd);
-	t_aula_liberar(aula, alumno);
-}
-
-
-t_comando intentar_moverse(t_aula *el_aula, t_persona *alumno, t_direccion dir)
-{
-	int fila = alumno->posicion_fila;
-	int columna = alumno->posicion_columna;
-	alumno->salio = direccion_moverse_hacia(dir, &fila, &columna);
-
-	///char buf[STRING_MAXIMO];
-	///t_direccion_convertir_a_string(dir, buf);
-	///printf("%s intenta moverse hacia %s (%d, %d)... ", alumno->nombre, buf, fila, columna);
-	
-	
-	bool entre_limites = (fila >= 0) && (columna >= 0) &&
-	     (fila < ALTO_AULA) && (columna < ANCHO_AULA);
-	     
-	bool pudo_moverse = alumno->salio ||
-	    (entre_limites && el_aula->posiciones[fila][columna] < MAXIMO_POR_POSICION);
-	
-	
-	if (pudo_moverse)
-	{
-		if (!alumno->salio)
-			el_aula->posiciones[fila][columna]++;
-		el_aula->posiciones[alumno->posicion_fila][alumno->posicion_columna]--;
-		alumno->posicion_fila = fila;
-		alumno->posicion_columna = columna;
+	if(aula!=NULL && alumno!=NULL){
+		t_aula_liberar(aula, alumno);
 	}
-	
-	
-	//~ if (pudo_moverse)
-		//~ printf("OK!\n");
-	//~ else
-		//~ printf("Ocupado!\n");
-
-
-	return pudo_moverse;
 }
 
-void colocar_mascara(t_aula *el_aula, t_persona *alumno, int socket_fd)
-{
-	printf("[Thread cliente %d] Esperando rescatista. Ya casi %s!\n", socket_fd, alumno->nombre);
-		
-	alumno->tiene_mascara = true;
-}
-
-
-void *atendedor_de_alumno(int socket_fd, t_aula *el_aula)
-{
-	t_persona alumno;
-	t_persona_inicializar(&alumno);
-	
-	if (recibir_nombre_y_posicion(socket_fd, &alumno) != 0) {
-		/* O la consola cortó la comunicación, o hubo un error. Cerramos todo. */
-		terminar_servidor_de_alumno(socket_fd, NULL, NULL);
-	}
-	
-	printf("[Thread cliente %d] Atendiendo a %s en la posicion (%d, %d)\n", 
-			socket_fd, alumno.nombre, alumno.posicion_fila, alumno.posicion_columna);
-		
-	t_aula_ingresar(el_aula, &alumno);
-	
-	/// Loop de espera de pedido de movimiento.
-	for(;;) {
-		t_direccion direccion;
-		
-		/// Esperamos un pedido de movimiento.
-		if (recibir_direccion(socket_fd, &direccion) != 0) {
-			/* O la consola cortó la comunicación, o hubo un error. Cerramos todo. */
-			terminar_servidor_de_alumno(socket_fd, el_aula, &alumno);
+void t_aula_iniciar_vacia(t_aula *un_aula){	
+	for(int i = 0; i < ANCHO_AULA; i++){
+		for (int j = 0; j < ALTO_AULA; j++){
+			un_aula->posiciones[i][j] = 0;
 		}
-		
-		/// Tratamos de movernos en nuestro modelo
-		bool pudo_moverse = intentar_moverse(el_aula, &alumno, direccion);
-
-		printf("[Thread cliente %d] %s se movio a: (%d, %d)\n", socket_fd, alumno.nombre, alumno.posicion_fila, alumno.posicion_columna);
-
-		/// Avisamos que ocurrio
-		enviar_respuesta(socket_fd, pudo_moverse ? OK : OCUPADO);		
-		//printf("aca3\n");
-		
-		if (alumno.salio)
-			break;
 	}
-	
-	colocar_mascara(el_aula, &alumno, socket_fd);
-
-	t_aula_liberar(el_aula, &alumno);
-	enviar_respuesta(socket_fd, LIBRE);
-	
-	printf("[Thread cliente %d] Listo, %s es libre!\n", socket_fd, alumno.nombre);
-	
-	return NULL;
-
+	un_aula->cantidad_de_personas = 0;
+	un_aula->rescatistas_disponibles = RESCATISTAS;
 }
 
-
-int main(void)
-{
-	//signal(SIGUSR1, signal_terminar);
+int main(void){
 	int socketfd_cliente, socket_servidor, socket_size;
 	struct sockaddr_in local, remoto;
 	
 	/* Crear un socket de tipo INET con TCP (SOCK_STREAM). */
 	if ((socket_servidor = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
-		perror("creando socket");
+		perror("[Error] creando socket");
 	}
 
 	/* Crear nombre, usamos INADDR_ANY para indicar que cualquiera puede conectarse aquí. */
@@ -167,23 +74,27 @@ int main(void)
 	local.sin_port = htons(PORT);
 	
 	if (bind(socket_servidor, (struct sockaddr *)&local, sizeof(local)) == -1) {
-		perror("haciendo bind");
+		perror("[Error] haciendo bind");
 	}
 
 	/* Escuchar en el socket y permitir 5 conexiones en espera. */
 	if (listen(socket_servidor, 5) == -1) {
-		perror("escuchando");
+		perror("[Error] escuchando");
 	}
 	
+	//declaracion de variables
 	t_aula el_aula;
 	t_aula_iniciar_vacia(&el_aula);
 	
+	//inicializa mutexes en 0
+	initMutexes();
+
 	/// Aceptar conexiones entrantes.
 	socket_size = sizeof(remoto);
-	for(;;){		
+	while(true){
 		if (-1 == (socketfd_cliente = 
 					accept(socket_servidor, (struct sockaddr*) &remoto, (socklen_t*) &socket_size)))
-		{			
+		{
 			fprintf(stderr, "!! Error al aceptar conexion\n");
 		}else{
 			//no necesito monitorear ni nada al worker, asi que no necesito una lista de los hilos lanzados ni algun "estado" posible de ellos
@@ -207,22 +118,143 @@ int main(void)
 			}else{
 				printf("[Main thread] Lanzado nuevo hilo para el cliente %d\n", socketfd_cliente);
 			}
-			
 		}
 	}
-
 	return 0;
 }
 
-/* this function is run by the second thread */
-void *new_worker_handler(void *new_client_parameters)
-{
-	t_worker_parameters* parameters = (t_worker_parameters*) new_client_parameters;
-	printf("[Thread cliente %d] Hola, nuevo worker con FD %d\n", parameters->socket_fd, parameters->socket_fd);
-	atendedor_de_alumno(parameters->socket_fd, parameters->el_aula);		
+/* metodos que se llaman concurrentemente */
 
-	//POR CONVENCION MIA, INSTANCIO EL t_worker_parameters AL CREAR EL THREAD Y LO LIBERO ACA.	
-	printf("[Thread cliente %d] Chau, termino el worker con FD %d\n", parameters->socket_fd, parameters->socket_fd);
-	free(new_client_parameters);
-	return NULL;//no hace falta devolver algo concreto, NULL basta, no quiero monitorear los workers ni nada de eso.
-}
+	void *new_worker_handler(void *new_client_parameters){
+		t_worker_parameters* parameters = (t_worker_parameters*) new_client_parameters;
+		printf("[Thread cliente %d] Hola, nuevo worker con FD %d\n", parameters->socket_fd, parameters->socket_fd);
+		atendedor_de_alumno(parameters->socket_fd, parameters->el_aula);		
+
+		//POR CONVENCION MIA, INSTANCIO EL t_worker_parameters AL CREAR EL THREAD Y LO LIBERO ACA.	
+		printf("[Thread cliente %d] Chau, termino el worker con FD %d\n", parameters->socket_fd, parameters->socket_fd);
+		free(new_client_parameters);
+		return NULL;//no hace falta devolver algo concreto, NULL basta, no quiero monitorear los workers ni nada de eso.
+	}
+
+	bool t_aula_ingresar(t_aula *un_aula, t_persona *alumno){
+		bool entra_en_la_posicion = false;
+		bool entre_limites = (alumno->posicion_fila >= 0) && (alumno->posicion_columna >= 0) &&
+		     (alumno->posicion_fila < ALTO_AULA) && (alumno->posicion_columna < ANCHO_AULA);
+		pthread_mutex_lock(&mutex_matrix);
+		pthread_mutex_lock(&mutex_cant_personas);
+		if(entre_limites && entra_en_la_posicion){
+			entra_en_la_posicion = (entre_limites && un_aula->posiciones[alumno->posicion_fila][alumno->posicion_columna] < MAXIMO_POR_POSICION);
+			un_aula->cantidad_de_personas++;
+			un_aula->posiciones[alumno->posicion_fila][alumno->posicion_columna]++;
+		}
+		pthread_mutex_unlock(&mutex_cant_personas);
+		pthread_mutex_unlock(&mutex_matrix);
+		return (!entre_limites || !entra_en_la_posicion);
+	}
+
+	void t_aula_liberar(t_aula *un_aula, t_persona *alumno){
+		pthread_mutex_lock(&mutex_cant_personas);
+		un_aula->cantidad_de_personas--;
+		if (!alumno->salio){
+			pthread_mutex_lock(&mutex_matrix);
+			un_aula->posiciones[alumno->posicion_fila][alumno->posicion_columna]--;
+			pthread_mutex_unlock(&mutex_matrix);
+		}
+		pthread_mutex_unlock(&mutex_cant_personas);
+	}
+
+	t_comando intentar_moverse(t_aula *el_aula, t_persona *alumno, t_direccion dir){
+		int fila = alumno->posicion_fila;
+		int columna = alumno->posicion_columna;
+		alumno->salio = direccion_moverse_hacia(dir, &fila, &columna);
+
+		bool entre_limites = (fila >= 0) && (columna >= 0) &&
+		     (fila < ALTO_AULA) && (columna < ANCHO_AULA);
+		     
+		pthread_mutex_lock(&mutex_matrix);
+
+			bool pudo_moverse = alumno->salio ||
+			    (entre_limites && el_aula->posiciones[fila][columna] < MAXIMO_POR_POSICION);
+			
+			if (pudo_moverse)
+			{
+				if (!alumno->salio){
+					el_aula->posiciones[fila][columna]++;
+				}
+				el_aula->posiciones[alumno->posicion_fila][alumno->posicion_columna]--;
+				alumno->posicion_fila = fila;
+				alumno->posicion_columna = columna;
+			}
+		pthread_mutex_unlock(&mutex_matrix);
+		
+		return pudo_moverse;
+	}
+
+	void colocar_mascara(t_aula *el_aula, t_persona *alumno, int socket_fd){
+		printf("[Thread cliente %d] Esperando rescatista. Ya casi %s!\n", socket_fd, alumno->nombre);
+		//TODO: esperar rescatista con variable de condicion, rescatistas_disponibles>0
+		alumno->tiene_mascara = true;
+	}
+
+	void *atendedor_de_alumno(int socket_fd, t_aula *el_aula){
+		t_persona alumno;
+		t_persona_inicializar(&alumno);
+		bool seCerroConexion = false;
+
+		if (recibir_nombre_y_posicion(socket_fd, &alumno) != 0) {
+			/* O la consola cortó la comunicación, o hubo un error. Cerramos todo. */
+			terminar_servidor_de_alumno(socket_fd, NULL, NULL);
+			seCerroConexion=true;
+		}
+		
+		printf("[Thread cliente %d] Atendiendo a %s en la posicion (%d, %d)\n", 
+				socket_fd, alumno.nombre, alumno.posicion_fila, alumno.posicion_columna);
+			
+		bool pudoEntrar = t_aula_ingresar(el_aula, &alumno);
+		if(!pudoEntrar){
+			terminar_servidor_de_alumno(socket_fd, el_aula, &alumno);	
+			seCerroConexion=true;
+		}
+
+		/// Loop de espera de pedido de movimiento.
+		while(true){
+			t_direccion direccion;
+			
+			/// Esperamos un pedido de movimiento.
+			if (recibir_direccion(socket_fd, &direccion) != 0) {
+				/* O la consola cortó la comunicación, o hubo un error. Cerramos todo. */
+				terminar_servidor_de_alumno(socket_fd, el_aula, &alumno);
+				seCerroConexion=true;
+			}
+			
+			/// Tratamos de movernos en nuestro modelo
+			bool pudo_moverse = intentar_moverse(el_aula, &alumno, direccion);
+
+			printf("[Thread cliente %d] %s se movio a: (%d, %d)\n", socket_fd, alumno.nombre, alumno.posicion_fila, alumno.posicion_columna);
+
+			/// Avisamos que ocurrio
+			enviar_respuesta(socket_fd, pudo_moverse ? OK : OCUPADO);		
+			//printf("aca3\n");
+			
+			if (alumno.salio){
+				break;
+			}
+			if(seCerroConexion){
+				break;
+			}
+		}
+		
+		if(!seCerroConexion){
+			colocar_mascara(el_aula, &alumno, socket_fd);
+
+			t_aula_liberar(el_aula, &alumno);
+			enviar_respuesta(socket_fd, LIBRE);
+			printf("[Thread cliente %d] Listo, %s es libre!\n", socket_fd, alumno.nombre);
+			
+		}else{
+			printf("[Thread cliente %d] Hubo un error y se cerro la conexion de %s\n", socket_fd, alumno.nombre);
+		}
+		
+		return NULL;
+
+	}

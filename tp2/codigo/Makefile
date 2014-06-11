@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -g -Wall -Werror
+CFLAGS = -std=c99 -g -Wall -Werror
 LDFLAGS = -pthread
 
 BINARIES = servidor_mono servidor_multi cliente
