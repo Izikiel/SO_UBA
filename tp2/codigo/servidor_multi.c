@@ -11,6 +11,15 @@ typedef struct {
 	int rescatistas_disponibles;
 } t_aula;
 
+/* Estructura para la creacion de los workers*/
+typedef struct worker_parameters{
+	int socket_fd;
+	t_aula *el_aula;
+} t_worker_parameters;
+
+//firma de la funcion worker
+void *new_worker_handler(void *new_client_parameters);
+
 void t_aula_iniciar_vacia(t_aula *un_aula)
 {
 	int i, j;
@@ -40,12 +49,9 @@ void t_aula_liberar(t_aula *un_aula, t_persona *alumno)
 }
 
 static void terminar_servidor_de_alumno(int socket_fd, t_aula *aula, t_persona *alumno) {
-	printf(">> Se interrumpió la comunicación con una consola.\n");
-		
+	printf("[Thread cliente %d] >> Se interrumpió la comunicación con una consola.\n", socket_fd);
 	close(socket_fd);
-	
 	t_aula_liberar(aula, alumno);
-	exit(-1);
 }
 
 
@@ -86,9 +92,9 @@ t_comando intentar_moverse(t_aula *el_aula, t_persona *alumno, t_direccion dir)
 	return pudo_moverse;
 }
 
-void colocar_mascara(t_aula *el_aula, t_persona *alumno)
+void colocar_mascara(t_aula *el_aula, t_persona *alumno, int socket_fd)
 {
-	printf("Esperando rescatista. Ya casi %s!\n", alumno->nombre);
+	printf("[Thread cliente %d] Esperando rescatista. Ya casi %s!\n", socket_fd, alumno->nombre);
 		
 	alumno->tiene_mascara = true;
 }
@@ -104,8 +110,8 @@ void *atendedor_de_alumno(int socket_fd, t_aula *el_aula)
 		terminar_servidor_de_alumno(socket_fd, NULL, NULL);
 	}
 	
-	printf("Atendiendo a %s en la posicion (%d, %d)\n", 
-			alumno.nombre, alumno.posicion_fila, alumno.posicion_columna);
+	printf("[Thread cliente %d] Atendiendo a %s en la posicion (%d, %d)\n", 
+			socket_fd, alumno.nombre, alumno.posicion_fila, alumno.posicion_columna);
 		
 	t_aula_ingresar(el_aula, &alumno);
 	
@@ -122,7 +128,7 @@ void *atendedor_de_alumno(int socket_fd, t_aula *el_aula)
 		/// Tratamos de movernos en nuestro modelo
 		bool pudo_moverse = intentar_moverse(el_aula, &alumno, direccion);
 
-		printf("%s se movio a: (%d, %d)\n", alumno.nombre, alumno.posicion_fila, alumno.posicion_columna);
+		printf("[Thread cliente %d] %s se movio a: (%d, %d)\n", socket_fd, alumno.nombre, alumno.posicion_fila, alumno.posicion_columna);
 
 		/// Avisamos que ocurrio
 		enviar_respuesta(socket_fd, pudo_moverse ? OK : OCUPADO);		
@@ -132,12 +138,12 @@ void *atendedor_de_alumno(int socket_fd, t_aula *el_aula)
 			break;
 	}
 	
-	colocar_mascara(el_aula, &alumno);
+	colocar_mascara(el_aula, &alumno, socket_fd);
 
 	t_aula_liberar(el_aula, &alumno);
 	enviar_respuesta(socket_fd, LIBRE);
 	
-	printf("Listo, %s es libre!\n", alumno.nombre);
+	printf("[Thread cliente %d] Listo, %s es libre!\n", socket_fd, alumno.nombre);
 	
 	return NULL;
 
@@ -178,14 +184,45 @@ int main(void)
 		if (-1 == (socketfd_cliente = 
 					accept(socket_servidor, (struct sockaddr*) &remoto, (socklen_t*) &socket_size)))
 		{			
-			printf("!! Error al aceptar conexion\n");
+			fprintf(stderr, "!! Error al aceptar conexion\n");
+		}else{
+			//no necesito monitorear ni nada al worker, asi que no necesito una lista de los hilos lanzados ni algun "estado" posible de ellos
+			//levantar hilo worker para atender el pedido. No es necesario que sea joineable, asi que lo hago dettachable
+			pthread_attr_t pthread_attributes; 
+			pthread_attr_init (&pthread_attributes);
+			pthread_attr_setdetachstate (&pthread_attributes, PTHREAD_CREATE_DETACHED);
+			//me tengo que armar un struct para enviarle como "parametros" al nuevo worker thread el socketfd_cliente
+			//como se le pasa un ptr, necesito un t_worker_parameters para cada uno, no problem. Uso memoria dinamica
+			//QUE ES LIBERADA DESDE EL THREAD AL FINALIZAR en la funcion new_worker_parameters
+			t_worker_parameters* new_worker_parameters = (t_worker_parameters*) malloc(sizeof(t_worker_parameters));
+			//inicializo parametros
+			new_worker_parameters->socket_fd = socketfd_cliente;
+			new_worker_parameters->el_aula = &el_aula;
+		
+			//creo el nuevo hilo y lo lanzo a ejecutar. asincronicamente se siguen escuchando nuevos llamados
+			pthread_t nuevo_worker;
+			if(pthread_create(&nuevo_worker, &pthread_attributes, new_worker_handler, new_worker_parameters)){
+				fprintf(stderr, "Error creating thread for client%d\n", socketfd_cliente);
+				exit(1);
+			}else{
+				printf("[Main thread] Lanzado nuevo hilo para el cliente %d\n", socketfd_cliente);
+			}
+			
 		}
-		else
-			atendedor_de_alumno(socketfd_cliente, &el_aula);
 	}
-
 
 	return 0;
 }
 
+/* this function is run by the second thread */
+void *new_worker_handler(void *new_client_parameters)
+{
+	t_worker_parameters* parameters = (t_worker_parameters*) new_client_parameters;
+	printf("[Thread cliente %d] Hola, nuevo worker con FD %d\n", parameters->socket_fd, parameters->socket_fd);
+	atendedor_de_alumno(parameters->socket_fd, parameters->el_aula);		
 
+	//POR CONVENCION MIA, INSTANCIO EL t_worker_parameters AL CREAR EL THREAD Y LO LIBERO ACA.	
+	printf("[Thread cliente %d] Chau, termino el worker con FD %d\n", parameters->socket_fd, parameters->socket_fd);
+	free(new_client_parameters);
+	return NULL;//no hace falta devolver algo concreto, NULL basta, no quiero monitorear los workers ni nada de eso.
+}

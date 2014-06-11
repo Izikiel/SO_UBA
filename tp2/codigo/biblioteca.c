@@ -118,7 +118,7 @@ int recibir_nombre_y_posicion(int socket_fd, t_persona *persona)
 				
 	if (res == EOF || res != 3)
 	{
-		printf("Error leyendo informacion del cliente. Res dio %d\n", res);
+		printf("[Thread cliente %d]Error leyendo informacion del cliente. Res dio %d\n", socket_fd, res);
 		return -1;
 	}
 	return 0;
