@@ -9,6 +9,7 @@
 #include <arpa/inet.h>
 #include <stdbool.h>
 #include <pthread.h>
+#include <time.h>
 
 #define PORT 5555
 #define MENSAJE_MAXIMO 1024

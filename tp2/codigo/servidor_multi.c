@@ -232,7 +232,7 @@ int main(void){
 			
 		bool pudoEntrar = t_aula_ingresar(el_aula, &alumno);
 		if(!pudoEntrar){
-			fprintf(stderr, "[Thread cliente %d] >> Se interrumpió la comunicación con una consola.\n", socket_fd);
+			fprintf(stderr, "[Thread cliente %d] >> No pudo entrar al aula(mal rango x,y o posicion x,y llena en el aula).\n", socket_fd);
 			close(socket_fd);
 			return NULL;
 		}
@@ -271,7 +271,8 @@ int main(void){
 		//tengo el lock y vale el_aula->rescatistas_disponibles>0 => uso al rescatista y lo libero a otro thread con un signal
 		el_aula->rescatistas_disponibles--;
 		alumno.tiene_mascara = true;
-		sleep(4);//simulo que tarde un tiempo ponerle la mascara con fines de testing
+		//simulo que tarde un tiempo ponerle la mascara con fines de testing
+		sleep(2);
 		el_aula->rescatistas_disponibles++;
 		pthread_cond_signal(&cv_cant_rescatista);
 		pthread_mutex_unlock(&mutex_cant_rescatistas);
