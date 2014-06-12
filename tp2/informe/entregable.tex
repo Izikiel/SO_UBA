@@ -1,16 +1,2 @@
 \section{Ap\'endice: Entregable}
-\subsection{Estructura de directorios}
-%\begin{itemize}
-%	\item \textbf{ej1:} Contiene el codigo fuente en java del ejercicio 1, tanto como los scripts de compilacion nativa, testeo y graficacion, casos de tests, mediciones, y graficos.
-%	\item \textbf{ej2:} Contiene el codigo fuente en C++ del ejercicio 2 y su Makefile para compilar.
-%	\item \textbf{ej3:} Contiene el codigo fuente en java del ejercicio 3, tanto como los scripts de compilacion nativa, testeo y graficacion, casos de tests, mediciones y graficos.
-	%\item \textbf{informe:} Contiene los fuentes de latex, imagenes y codigo relevante junto al pdf del informe 
-	%\item \textbf{casos:}	Contiene el programa que genera los casos del ej2
-%\end{itemize}
-
-\subsection{Compilacion y ejecucion}
-%\begin{itemize}
-	%\item \textbf{ej1:} Ejecutando ./compilacionNativa.sh se compila el programa, se crean y resuelven tests aleatorios tomando tiempos y se grafican en png los resultados.
-	%\item \textbf{ej2:} utilizando el Makefile y corriendo el ejecutable.
-	%\item \textbf{ej3:} Ejecutando ./compilacionNativa.sh se compila el programa, se crean y resuelven tests aleatorios tomando tiempos y se grafican en png los resultados.
-%\end{itemize}
+Dado que la unica modificacion fue la creacion de un servidor paralelo servidor\_multi. Con solo compilar tipeando $make$ $clean$ $all$ se obtendran todos los ejecutables necesarios para llevar a cabo cualquier prueba o ejecucion del sistema. Para ejecutar el servidor se debe tipear $./servidor_multi$ y para realizar las pruebas $python server_tester.py$. Los parametros modificables que permiten varios tipos de pruebas del servidor se encuentran en $biblioteca.h$ y los de testing en $python server_tester.py$. Se realizo una automatizacion de los tests en scripts para agilizar el proceso de analisis, los mismos se encuentran en la carpeta $codigo$.

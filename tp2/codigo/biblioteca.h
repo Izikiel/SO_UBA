@@ -11,21 +11,8 @@
 #include <pthread.h>
 #include <time.h>
 
-#define PORT 5555
-#define MENSAJE_MAXIMO 1024
-#define DATO_MAXIMO 100
-#define STRING_MAXIMO 200
-
-#define ANCHO_AULA 10
-#define ALTO_AULA 10
-#define FILA_SALIDA 0
-#define COLUMNA_SALIDA -1
-//#define RESCATISTAS 10
-//#define MAXIMO_POR_POSICION 10
-#define RESCATISTAS 1
-#define MAXIMO_POR_POSICION 100
-
-
+//en este archivo se guardan los parametros(defines)
+#include "parametros.h"
 
 /* Enumerado que indica el estado de un asiento. */
 enum e_direccion { ARRIBA, ABAJO, IZQUIERDA, DERECHA, DIRECCION_NULA /* para errores */ };
