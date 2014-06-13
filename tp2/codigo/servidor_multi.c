@@ -1,6 +1,5 @@
 #include <signal.h>
 #include <errno.h>
-
 #include "biblioteca.h"
 
 /*Estructuras*/
@@ -27,7 +26,6 @@ pthread_cond_t cv_cant_rescatista;
 /*firmas de metodos*/
 void initSyncElements();
 void destroySyncElements();
-void imprimirAula(t_aula *un_aula);
 void t_aula_iniciar_vacia(t_aula *un_aula);
 bool t_aula_ingresar(t_aula *un_aula, t_persona *alumno);
 void t_aula_liberar(t_aula *un_aula, t_persona *alumno);
@@ -151,15 +149,15 @@ int main(void){
 		bool entra_en_la_posicion = false;
 		bool entre_limites = (alumno->posicion_fila >= 0) && (alumno->posicion_columna >= 0) &&
 		     (alumno->posicion_fila < ALTO_AULA) && (alumno->posicion_columna < ANCHO_AULA);
+		pthread_mutex_lock(&mutex_cant_personas);
 		pthread_mutex_lock(&mutex_matrix);
 			entra_en_la_posicion = (un_aula->posiciones[alumno->posicion_fila][alumno->posicion_columna] < MAXIMO_POR_POSICION);
 			if((pudoEntrar = entre_limites && entra_en_la_posicion) ){
-				pthread_mutex_lock(&mutex_cant_personas);
 				un_aula->cantidad_de_personas++;
 				un_aula->posiciones[alumno->posicion_fila][alumno->posicion_columna]++;
-				pthread_mutex_unlock(&mutex_cant_personas);				 
 			}
 		pthread_mutex_unlock(&mutex_matrix);
+		pthread_mutex_unlock(&mutex_cant_personas);				 
 		return pudoEntrar;
 	}
 
@@ -168,15 +166,15 @@ int main(void){
 		     (alumno->posicion_fila < ALTO_AULA) && (alumno->posicion_columna < ANCHO_AULA);
 
 		pthread_mutex_lock(&mutex_cant_personas);
+		pthread_mutex_lock(&mutex_matrix);
 		un_aula->cantidad_de_personas--;
 		//hay que validar que este en rango, sino vuela con fuegos artificiales un SIGSEV por acceder fuera de rango la matriz
 		//puede no estar en rango por ser llamado desde algun error para sanitizar las estructuras o bien porque el alumno
 		//fue rescatado y hay que actualizar la estructura
 		if (entre_limites){
-			pthread_mutex_lock(&mutex_matrix);
 			un_aula->posiciones[alumno->posicion_fila][alumno->posicion_columna]--;
-			pthread_mutex_unlock(&mutex_matrix);
 		}
+		pthread_mutex_unlock(&mutex_matrix);
 		pthread_mutex_unlock(&mutex_cant_personas);
 	}
 
@@ -222,7 +220,8 @@ int main(void){
 
 		if (recibir_nombre_y_posicion(socket_fd, &alumno) != 0) {
 			/* O la consola cortó la comunicación, o hubo un error. Cerramos todo. */
-			fprintf(stderr, "[Thread cliente %d] >> Se interrumpió la comunicación con una consola.\n", socket_fd);
+			fprintf(stderr, "[Thread cliente %d] >> Se interrumpió la comunicación con una consola recibiendo nombre y posicion.\n", socket_fd);
+			enviar_respuesta(socket_fd, ERROR);
 			close(socket_fd);
 			return NULL;
 		}
@@ -233,6 +232,7 @@ int main(void){
 		bool pudoEntrar = t_aula_ingresar(el_aula, &alumno);
 		if(!pudoEntrar){
 			fprintf(stderr, "[Thread cliente %d] >> No pudo entrar al aula(mal rango x,y o posicion x,y llena en el aula).\n", socket_fd);
+			enviar_respuesta(socket_fd, CASILLA_LLENA_O_FUERADERANGO);
 			close(socket_fd);
 			return NULL;
 		}
@@ -244,16 +244,21 @@ int main(void){
 			/// Esperamos un pedido de movimiento.
 			if (recibir_direccion(socket_fd, &direccion) != 0) {
 				/* O la consola cortó la comunicación, o hubo un error. Cerramos todo. */
-				fprintf(stderr, "[Thread cliente %d] >> Se interrumpió la comunicación con una consola.\n", socket_fd);
-				close(socket_fd);
+				fprintf(stderr, "[Thread cliente %d] >> Se interrumpió la comunicación con una consola recibiendo direccion.\n", socket_fd);
 				t_aula_liberar(el_aula, &alumno);
+				enviar_respuesta(socket_fd, ERROR);
+				close(socket_fd);
 				return NULL;
 			}
 			
 			/// Tratamos de movernos en nuestro modelo
 			bool pudo_moverse = intentar_moverse(el_aula, &alumno, direccion);
-
-			printf("[Thread cliente %d] %s se movio a: (%d, %d)\n", socket_fd, alumno.nombre, alumno.posicion_fila, alumno.posicion_columna);
+			
+			if(pudo_moverse){
+				printf("[Thread cliente %d] %s se movio a: (%d, %d)\n", socket_fd, alumno.nombre, alumno.posicion_fila, alumno.posicion_columna);
+			}else{
+				printf("[Thread cliente %d] %s Intento moverse SIN EXITO A: (%d, %d)\n", socket_fd, alumno.nombre, alumno.posicion_fila, alumno.posicion_columna);
+			}
 
 			/// Avisamos que ocurrio
 			enviar_respuesta(socket_fd, pudo_moverse ? OK : OCUPADO);					
@@ -270,42 +275,21 @@ int main(void){
 		}
 		//tengo el lock y vale el_aula->rescatistas_disponibles>0 => uso al rescatista y lo libero a otro thread con un signal
 		el_aula->rescatistas_disponibles--;
-		alumno.tiene_mascara = true;
-		//simulo que tarde un tiempo ponerle la mascara con fines de testing
-		sleep(2);
-		el_aula->rescatistas_disponibles++;
-		pthread_cond_signal(&cv_cant_rescatista);
 		pthread_mutex_unlock(&mutex_cant_rescatistas);
+		
+		alumno.tiene_mascara = true;
+
+		pthread_mutex_lock(&mutex_cant_rescatistas);
+		el_aula->rescatistas_disponibles++;
+		pthread_mutex_unlock(&mutex_cant_rescatistas);
+		pthread_cond_broadcast(&cv_cant_rescatista);
 
 		//liberar aula
 		t_aula_liberar(el_aula, &alumno);
 
 		//avisar al cliente
-		enviar_respuesta(socket_fd, LIBRE);		
+		enviar_respuesta(socket_fd, LIBRE);	
+		close(socket_fd);	
 		printf("[Thread cliente %d] Listo, %s es libre!\n", socket_fd, alumno.nombre);		
-		printf("Estado del aula a la salida de %s:", alumno.nombre);
-		imprimirAula(el_aula);
 		return NULL;
-
 	}
-
-void imprimirAula(t_aula *un_aula){	
-	pthread_mutex_lock(&mutex_matrix);
-	pthread_mutex_lock(&mutex_cant_rescatistas);
-	pthread_mutex_lock(&mutex_cant_personas);
-
-	for(int i = 0; i < ANCHO_AULA; i++){
-		for (int j = 0; j < ALTO_AULA; j++){
-			printf("|_%d_|", un_aula->posiciones[0][j]);
-		}
-		printf("\n");
-	}
-
-	printf("Cant. personas: %d\n", un_aula->cantidad_de_personas);
-	printf("Cant. personas maximas por posicion: %d\n", MAXIMO_POR_POSICION);
-	printf("Rescatistas disponibles: %d\n", un_aula->rescatistas_disponibles);	
-	printf("Rescatistas en total: %d\n", RESCATISTAS);	
-	pthread_mutex_unlock(&mutex_cant_personas);
-	pthread_mutex_unlock(&mutex_cant_rescatistas);
-	pthread_mutex_unlock(&mutex_matrix);
-}

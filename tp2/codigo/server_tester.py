@@ -8,8 +8,8 @@ from paises import *
 HOST = 'localhost'
 PORT = 5555
 #CLIENTES = 3
-#CLIENTES = 5
-CLIENTES = 243#no hay mas paises y tira error de indice python
+CLIENTES = 50
+#CLIENTES = 243#no hay mas paises y tira error de indice python
 
 class TCPFramer:
 	def __init__(self, socket):
@@ -18,6 +18,7 @@ class TCPFramer:
 		self.buf = ""
 		
 	def send(self, message):
+		assert(message != "")
 		self.sock.sendall(message + '|\n')
 	
 	def receive(self):
@@ -65,24 +66,32 @@ class Cliente:
 		print("Respuesta: <"+ response+ ">")
 		if response == "OK":
 			self.posicion = (self.posicion[0] + next[0], self.posicion[1] + next[1])
+			if self.posicion == (0,-1):
+				return 1#salio y esta todo OK
+			else:
+				return 0#sigue girando por la matriz en el server pero esta todo OK
+		if response == "ERROR":
+			return -2
+		elif response == "CASILLA_LLENA_O_FUERADERANGO":
+			return -3
+		elif response == "LIBRE":
+			return 1
 		else:
-			print ("rebote")
+			return 0#no es error
 				
-		return self.posicion == (0,-1)
 
 
-	def salir(self):
-		
-		sali = self.posicion == (0,-1)
-		while not sali:
-			sali = self.avanzarUnPaso()
-							
-		print(self.name, "salio")
-		self.sock.close()
+#	def salir(self):
+#		sali = self.posicion == (0,-1)
+#		while not sali:
+#			sali = self.avanzarUnPaso()
+#	
+#		print(self.name, "salio")
+#		self.sock.close()
  
 clientes = []
 for i in range(CLIENTES):
-	 c = Cliente(paises[i], (5,5))
+	 c = Cliente(paises[i], (1,1))
 	 clientes.append(c)
 	 
 #for cliente in clientes:
@@ -90,17 +99,19 @@ for i in range(CLIENTES):
 
 i = 0
 while len(clientes) > 0:
-	if clientes[i].avanzarUnPaso():
+	res = clientes[i].avanzarUnPaso()
+	if (res == 1):#salio
 		clientes[i].esperarMascara()
 		clientes.pop(i)
-	else:
-		i += 1
+	elif(res == 0):#sigue girando por la matriz
+		#nada
+		pass
+	elif(res < 0):#hubo error o rebote de entrar en la posicion esa
+		clientes.pop(i)
+
+	i += 1
 		
 	if i >= len(clientes):
 		i = 0
 		
-		
 sys.exit(0)
-
-
-

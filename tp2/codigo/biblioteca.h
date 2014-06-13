@@ -22,7 +22,7 @@ t_direccion t_direccion_crear_de_string(char *direccion_str);
 void t_direccion_convertir_a_string(t_direccion dir, char *direccion_str);
 bool direccion_moverse_hacia(t_direccion dir, int *fila, int *columna);
 
-enum e_comando { OK, OCUPADO, LIBRE, COMANDO_NULO /* para errores */ };
+enum e_comando { OK, OCUPADO, LIBRE, COMANDO_NULO, ERROR, CASILLA_LLENA_O_FUERADERANGO /* para errores */ };
 typedef enum e_comando t_comando;
 
 char* t_comando_a_string(t_comando comando, char *buffer);

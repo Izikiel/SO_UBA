@@ -65,6 +65,12 @@ t_comando t_comando_crear_de_string(char *comando_str)
 		
 	if (strncmp(comando_str, "LIBRE!", MENSAJE_MAXIMO) == 0)
 		return LIBRE;
+	
+	if (strncmp(comando_str, "ERROR!", MENSAJE_MAXIMO) == 0)
+		return ERROR;
+
+	if (strncmp(comando_str, "CASILLA_LLENA_O_FUERADERANGO!", MENSAJE_MAXIMO) == 0)
+		return CASILLA_LLENA_O_FUERADERANGO;
 		
 	return COMANDO_NULO;
 }
@@ -77,7 +83,10 @@ char* t_comando_a_string(t_comando comando, char *buffer)
 		snprintf(buffer, MENSAJE_MAXIMO, "OCUPADO");
 	else if (comando == LIBRE)
 		snprintf(buffer, MENSAJE_MAXIMO, "LIBRE!");
-		
+	else if (comando == ERROR)
+		snprintf(buffer, MENSAJE_MAXIMO, "ERROR!");
+	else if (comando == CASILLA_LLENA_O_FUERADERANGO)
+		snprintf(buffer, MENSAJE_MAXIMO, "CASILLA_LLENA_O_FUERADERANGO!");
 	return buffer;
 }
 
@@ -111,7 +120,7 @@ int recibir_nombre_y_posicion(int socket_fd, t_persona *persona)
 		return -1;
 	}
 	
-	int res = sscanf(buf, "NOMBRE: %20s FILA: %d COLUMNA: %d\n",
+	int res = sscanf(buf, "NOMBRE: %200s FILA: %d COLUMNA: %d\n",
 				persona->nombre,
 				&persona->posicion_fila,
 				&persona->posicion_columna);
@@ -163,16 +172,15 @@ int esperar_respuesta(int socketfd, t_comando *respuesta)
 }
 
 
-__thread char colabuf[MENSAJE_MAXIMO*2+1] = { 0 };
 
 int recibir(int s, char* buf) {
-	
+ 	char colabuf[MENSAJE_MAXIMO*2+1] = { 0 };
 	int i = 0;
 	
 	while (colabuf[i] != '|' && colabuf[i] != 0)
 		i++;
 		
-	//~ printf("colabuf: %s, (%d)\n", colabuf, i);
+	//~ 
 
 
 	if (colabuf[i] == 0) // el mensaje fue cortado (porque si no habria un |)
@@ -180,10 +188,13 @@ int recibir(int s, char* buf) {
 		//~ printf("Receiving...");
 		ssize_t n = recv(s, &colabuf[i], MENSAJE_MAXIMO, 0);
 
-		if (n == 0) 
+		if (n == 0){ 
+			fprintf(stderr,"ERROR n == 0 colabuf: %s, (%d)\n", colabuf, i);
 			return -1; /* Se terminó la conexión. */
+		}
 		if (n < 0) { 
-			printf(">> Error recibiendo %s\n", buf);
+			fprintf(stderr,"ERROR n < 0 colabuf: %s, (%d)\n", colabuf, i);
+			perror("Flasheee en el recv: ");
 			return -2; /* Se produjo un error. */
 		}
 		
@@ -229,4 +240,3 @@ int enviar(int s, char* buf)
 	}
 	return 0;
 }
-
