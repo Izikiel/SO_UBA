@@ -8,7 +8,7 @@ from paises import *
 HOST = 'localhost'
 PORT = 5555
 #CLIENTES = 3
-CLIENTES = 50
+CLIENTES = 15
 #CLIENTES = 243#no hay mas paises y tira error de indice python
 
 class TCPFramer:
