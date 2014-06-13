@@ -230,6 +230,9 @@ int main(void){
 				socket_fd, alumno.nombre, alumno.posicion_fila, alumno.posicion_columna);
 			
 		bool pudoEntrar = t_aula_ingresar(el_aula, &alumno);
+
+		//COMENTAR ESTO PARA HACER COMPATIBLE EL PROTOCOLO CON EL CLIENTE. SE AGREGO ESTO PARA VALIDAR, SINO EXPLOTA TODO CON EL
+		//PROTOCOLO QUE DA LA CATEDRA
 		if(!pudoEntrar){
 			fprintf(stderr, "[Thread cliente %d] >> No pudo entrar al aula(mal rango x,y o posicion x,y llena en el aula).\n", socket_fd);
 			enviar_respuesta(socket_fd, CASILLA_LLENA_O_FUERADERANGO);

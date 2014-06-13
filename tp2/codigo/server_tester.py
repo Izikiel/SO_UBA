@@ -8,7 +8,7 @@ from paises import *
 HOST = 'localhost'
 PORT = 5555
 #CLIENTES = 3
-CLIENTES = 15
+CLIENTES = 20
 #CLIENTES = 243#no hay mas paises y tira error de indice python
 
 class TCPFramer:
@@ -46,71 +46,70 @@ class Cliente:
 		self.framer.send(string)
 		#time.sleep(0.5)
 
-	def esperarMascara(self):
+	def esperarMascara(self, clienteID):
+		print("[Cliente " + str(i) + "] Esperando mascara...")
 		response = self.framer.receive()
-		print("Respuesta: <"+ response+ ">")	
+		print("[Cliente " + str(i) + "] Respuesta: <"+ response+ ">")
 
 		
-	def avanzarUnPaso(self):
-		
+	def avanzarUnPaso(self, clienteID):
 		if self.posicion[0] == 0:
 			direc = "IZQUIERDA"
 			next = (0, -1)	
 		else:
 			direc = "ARRIBA"
 			next = (-1, 0)
-			
+					
+		print "[Cliente " + str(i) + "] Enviando: " + direc
 		self.framer.send(direc)
 		response = self.framer.receive()
 		time.sleep(0.5)
-		print("Respuesta: <"+ response+ ">")
 		if response == "OK":
 			self.posicion = (self.posicion[0] + next[0], self.posicion[1] + next[1])
 			if self.posicion == (0,-1):
-				return 1#salio y esta todo OK
+				print "[Cliente " + str(i) + "] Llego a la salida."
+				return 1
 			else:
-				return 0#sigue girando por la matriz en el server pero esta todo OK
-		if response == "ERROR":
+				print "[Cliente " + str(i) + "] Se movio pero no llego a la salida."
+				return 0
+		elif response == "OCUPADO":
+			print "[Cliente " + str(i) + "] No se pudo mover, esta ocupada la posicion a donde se intento moverse."
+			return 0
+		elif response == "ERROR":
+			print "[Cliente " + str(i) + "] Hubo ERROR recibido del server."
 			return -2
 		elif response == "CASILLA_LLENA_O_FUERADERANGO":
+			print "[Cliente " + str(i) + "] Conexion rechazada por el servidor por fuera de rango o casilla llena"
 			return -3
-		elif response == "LIBRE":
-			return 1
-		else:
-			return 0#no es error
 				
-
-
-#	def salir(self):
-#		sali = self.posicion == (0,-1)
-#		while not sali:
-#			sali = self.avanzarUnPaso()
-#	
-#		print(self.name, "salio")
-#		self.sock.close()
- 
+#Main code:
 clientes = []
 for i in range(CLIENTES):
-	 c = Cliente(paises[i], (1,1))
+	 #el 1 de la tupla indica si el cliente esta activo o ya dejo de comunicarse con el servidor, dado que salio o que no pudo entrar al principio
+	 c = (Cliente(paises[i], (1,1)), 1)
 	 clientes.append(c)
-	 
-#for cliente in clientes:
-#	cliente.salir()
 
 i = 0
-while len(clientes) > 0:
-	res = clientes[i].avanzarUnPaso()
-	if (res == 1):#salio
-		clientes[i].esperarMascara()
-		clientes.pop(i)
-	elif(res == 0):#sigue girando por la matriz
-		#nada
+clientesActivos = len(clientes)
+while clientesActivos > 0:
+	if (clientes[i][1] == 1):		
+		res = clientes[i][0].avanzarUnPaso(i)
+		if (res == 1):#llego a la salida
+			clientes[i][0].esperarMascara(i)
+			print "[Ya fue liberado. Quitando de la lista al cliente " + str(i) + "]"
+			clientes[i] = (clientes[i][0], 0)#indico que el cliente ya no esta mas activo			
+			clientesActivos = clientesActivos - 1#decremento la cantidad de clientes activos
+		elif(res == 0):#sigue moviendose por la matriz
+			#nada, ignoramos y seguimos ciclando
+			pass
+		elif(res < 0):#hubo error o rebote de entrar en la posicion esa
+			print "[El servidor nos reboto la conexion porque esta llena la capacidad de (x,y) para ingresar. Quitando de la lista al cliente " + str(i) + "]"
+			clientes[i] = (clientes[i][0], 0)#indico que el cliente ya no esta mas activo
+			clientesActivos = clientesActivos - 1#decremento la cantidad de clientes activos
+	else:
 		pass
-	elif(res < 0):#hubo error o rebote de entrar en la posicion esa
-		clientes.pop(i)
 
 	i += 1
-		
 	if i >= len(clientes):
 		i = 0
 		
