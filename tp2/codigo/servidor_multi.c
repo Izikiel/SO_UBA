@@ -116,13 +116,15 @@ int main(void){
 		
 			//creo el nuevo hilo y lo lanzo a ejecutar. asincronicamente se siguen escuchando nuevos llamados
 			pthread_t nuevo_worker;
-			if(pthread_create(&nuevo_worker, &pthread_attributes, new_worker_handler, new_worker_parameters)){
-				fprintf(stderr, "Error creating thread for client%d\n", socketfd_cliente);
-				exit(1);
-			}else{
-				printf("[Main thread] Lanzado nuevo hilo para el cliente %d\n", socketfd_cliente);
-			}
+			int attempts = RECONNECTION_ATTEMPTS;
+			while((pthread_create(&nuevo_worker, &pthread_attributes, new_worker_handler, new_worker_parameters) != 0/*0 es success*/) && (attempts>0)){
+				fprintf(stderr, "Error creating thread for client %d. Retrying in a few seconds...\n", socketfd_cliente);
+				sleep(3);
+				attempts--;	
+			}	
+			printf("[Main thread] Lanzado nuevo hilo para el cliente %d\n", socketfd_cliente);
 			pthread_attr_destroy(&pthread_attributes);
+		
 		}
 	}
 	//nunca deberia salir del while, pero arme el metodo por cuestiones de sanitizacion y buenas practicas

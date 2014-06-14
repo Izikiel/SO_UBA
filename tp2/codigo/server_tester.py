@@ -7,9 +7,6 @@ from paises import *
 
 HOST = 'localhost'
 PORT = 5555
-#CLIENTES = 3
-#CLIENTES = 20
-CLIENTES = 243#no hay mas paises y tira error de indice python
 
 class TCPFramer:
 	def __init__(self, socket):
@@ -83,6 +80,9 @@ class Cliente:
 			return -3
 				
 #Main code:
+#read parameters from argv
+print "Lanzando tester sincronico con " + sys.argv[1] + " clientes"
+CLIENTES = int(sys.argv[1])
 clientes = []
 for i in range(CLIENTES):
 	 #el 1 de la tupla indica si el cliente esta activo o ya dejo de comunicarse con el servidor, dado que salio o que no pudo entrar al principio
@@ -102,8 +102,12 @@ while clientesActivos > 0:
 		elif(res == 0):#sigue moviendose por la matriz
 			#nada, ignoramos y seguimos ciclando
 			pass
-		elif(res < 0):#hubo error o rebote de entrar en la posicion esa
+		elif(res == -3):#hubo rebote de entrar en la posicion esa
 			print "[El servidor nos reboto la conexion porque esta llena la capacidad de (x,y) para ingresar. Quitando de la lista al cliente " + str(i) + "]"
+			clientes[i] = (clientes[i][0], 0)#indico que el cliente ya no esta mas activo
+			clientesActivos = clientesActivos - 1#decremento la cantidad de clientes activos
+		elif(res == -2):#hubo error del server
+			print "[Error del servidor. Quitando de la lista al cliente " + str(i) + "]"
 			clientes[i] = (clientes[i][0], 0)#indico que el cliente ya no esta mas activo
 			clientesActivos = clientesActivos - 1#decremento la cantidad de clientes activos
 	else:
