@@ -1,6 +1,6 @@
 \section{Dise\~no: Modelo propuesto para servidor multihilo}
 
-Implementamos el servidor multi en base al servidor mono.
+Se utilizo como base el servidor mono, para realizar el nuevo diseno del servidor multi, que atiende varios clientes de forma concurrente. A continuacion se explica brevemente el funcionamiento del servidor mono y luego se explica como fue implementado el servidor que atiende pedidos concurrentes.
 
 \subsection{Funcionamiento del servidor mono}
 El servidor mono atiende un cliente a la vez en base al orden de llegada, y hasta que no termina con el cliente que est\'a atendiendo, no pasa a atender al pr\'oximo.
@@ -25,7 +25,7 @@ Ejemplo:
 Nuestro servidor multi consiste de un thread principal y un thread worker por cada cliente conectado, separando en hilos diferentes las operaciones que realizaba el servidor mono, como se explica a continuaci\'on:
 
 \begin{itemize}
-\item El thread principal se encarga de detectar la conexi\'on de nuevos clientes, tras lo cual crea un worker para que los atienda.
+\item El thread principal se encarga de detectar la conexi\'on de nuevos clientes, tras lo cual crea un worker para que los atienda, si la funcion \verb|pthread_create| devuelve error, se esperan unos segundos y se reintenta la creacion del mismo una cantidad fija de veces antes de ignorar el pedido.
 \item El worker se encarga de atender a los clientes usando el protocolo cliente-servidor especificado anteriormente, recibiendo como par\'ametros el socket donde se conect\'o el cliente, y la estructura compartida tipo \verb|t_aula| aula.
 \end{itemize}
 
@@ -65,7 +65,7 @@ Las operaciones que realiza un hilo worker son las siguientes:
 \item Finalmente, el worker emite un broadcast a la variable de condici\'on para indicar que termin\'o, incrementa en 1 la cantidad de rescatistas, avisa al cliente que es libre, cierra la conexi\'on, y finaliza su ejecuci\'on.
 \end{enumerate}
 
-Dado que en la implementacion monothread, podia haber un \'unico cliente moviendose por la matriz, salvo que la cantidad de personas por posicion fuera menor que uno, no hab\'ia problemas de saturaci\'on al momento de entrar. Ahora, dado que puede haber muchos clientes moviendose por la matriz, se debe tener en cuenta la cantidad de personas actualmente en una posicion $(x,y)$ ante un pedido de movimiento o de ingreso al aula. En esta situaci\'on, se debe validar que la posici\'on destino a donde va a terminar el cliente que solicito el pedido, este en rango y ademas que haya lugar para esa persona. Esto provoc\'o tener que crear un nuevo tipo de mensaje de respuesta del servidor (sin modificar el protocolo ya existente) que ante el pedido de ingreso al aula de una posicion $(x,y)$ saturada, se le niegue el ingreso devolviendo dicho nuevo estado \verb|POSICION_LLENA_O_FUERA_DE_RANGO|. Esto no modifica de ninguna forma el protocolo existente, dado que el cliente que vino en el bundle no valida errores. Si el servidor original devolv\'ia errores (el mono devuelve error y el cliente no valida) el cliente no tiene comportamiento definido ante esto. Una forma de solucionar este problema es definir que \verb|POSICION_LLENA_O_FUERA_DE_RANGO| sea equivalente a \verb|ERROR|, cosa que ya estaba contemplada en el protocolo original presentado.
+Dado que en la implementacion monothread, podia haber un \'unico cliente moviendose por la matriz, salvo que la cantidad de personas por posicion fuera menor que uno, no hab\'ia problemas de saturaci\'on al momento de entrar. Ahora, dado que puede haber muchos clientes moviendose por la matriz, se debe tener en cuenta la cantidad de personas actualmente en una posicion $(x,y)$ ante un pedido de movimiento o de ingreso al aula. En esta situaci\'on, se debe validar que la posici\'on destino a donde va a terminar el cliente que solicito el pedido, este en rango y ademas que haya lugar para esa persona. Esto provoc\'o tener que crear un nuevo tipo de mensaje de respuesta del servidor (sin modificar el protocolo ya existente) que ante el pedido de ingreso al aula de una posicion $(x,y)$ saturada, se le niegue el ingreso devolviendo dicho nuevo estado \verb|POSICION_LLENA_O_FUERA_DE_RANGO|. Esto no modifica de ninguna forma el protocolo existente, dado que el cliente que vino en el bundle no valida errores. Si el servidor original devolv\'ia errores (el mono devuelve error y el cliente no valida) el cliente no tiene comportamiento definido ante esto. Una forma de solucionar el problema de cambio de protocolo, es definir que \verb|POSICION_LLENA_O_FUERA_DE_RANGO| sea equivalente a \verb|ERROR|, cosa que ya estaba contemplada en el protocolo original presentado.
 
 El tester python otorgado, tampoco validaba si el servidor devolv\'ia \verb|ERROR|, y se limitaba a enviar c\'iclicamente mensajes de forma serial a todos los sockets abiertos. Cuando el servidor devuelve error, cierra el socket y cuando el tester envia datos en el proximo ciclo a un socket cerrado hay un error. Para evitar esto, se validaron las respuestas del servidor, de forma tal que cuando un cliente era liberado/hab\'ia error, se eliminaba del ciclo de proceso de peticiones.
 

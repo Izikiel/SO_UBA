@@ -1,4 +1,6 @@
 \begin{abstract}
-INTRO ABSTRACT
+En este documento se explicaran y documentaran las decisiones tomadas con respecto al disen\~o del servidor multi-thread desarrollado, se detallara el disen\~o del mismo,
+se explicaran los obstaculos encontrados al realizar multi-threaded el servidor, por ejemplo las \verb|race conditions|, como fueron solucionados y con que herramientas del estandar de POSIX fueron implementadas las soluciones.
+Se explica el nuevo manejo de los hilos del servidor multi al atender peticiones, y algunas modificaciones a tener en cuenta que surgieron a partir de la multiprogramacion generada en el servidor, entre ellas nuevas validaciones necesarias en el protocolo, que solo agregan funcionalidad, sin modificar el protocolo existente, y pueden ser facilmente adaptadas para que el protocolo original quede sin cambios.
 \end{abstract}
 

@@ -1,6 +1,0 @@
-\BOOKMARK [1][-]{section.1}{Dise\361o: Modelo propuesto para servidor multihilo}{}
-\BOOKMARK [2][-]{subsection.1.1}{Funcionamiento del servidor mono}{section.1}
-\BOOKMARK [2][-]{subsection.1.2}{Implementaci\363n del servidor multi}{section.1}
-\BOOKMARK [2][-]{subsection.1.3}{Funcionamiento de los threads}{section.1}
-\BOOKMARK [1][-]{section.2}{Testing: Analisis de escalamiento}{}
-\BOOKMARK [1][-]{section.3}{Ap\351ndice: Entregable}{}

@@ -1,7 +1,0 @@
-\select@language {spanish}
-\contentsline {section}{\numberline {1}Dise\~no: Modelo propuesto para servidor multihilo}{3}{section.1}
-\contentsline {subsection}{\numberline {1.1}Funcionamiento del servidor mono}{3}{subsection.1.1}
-\contentsline {subsection}{\numberline {1.2}Implementaci\'on del servidor multi}{4}{subsection.1.2}
-\contentsline {subsection}{\numberline {1.3}Funcionamiento de los threads}{4}{subsection.1.3}
-\contentsline {section}{\numberline {2}Testing: Analisis de escalamiento}{6}{section.2}
-\contentsline {section}{\numberline {3}Ap\'endice: Entregable}{7}{section.3}
