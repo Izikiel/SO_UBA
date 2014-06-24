@@ -33,7 +33,9 @@ Para sincronizar los accesos a los diferentes recursos compartidos del aula, pre
 
 Una race condition es cuando var\'ia la ejecuci\'on dependiendo del orden de acceso a un recurso compartido, si este orden no es el esperado. Para evitar esto, se fuerza un orden determinado mediante diferentes estructuras de sincronizaci\'on, como mutex y variables de condici\'on.
 
-Un deadlock es la situaci\'on donde 2 threads con 2 recursos tratan de acceder a un recurso que posee el otro, manteniendo el recurso que ya tienen, quedando el sistema bloqueado. Esto en este caso no sucede debido a que solamente se comparte un solo recurso entre todos los threads que es necesario para completar su ejecuci\'on, por lo que no se produce hold & wait, que es lo explicado anteriormente.
+Un deadlock es la situaci\'on donde 2 threads con 2 recursos tratan de acceder a un recurso que posee el otro, manteniendo el recurso que ya tienen, quedando el sistema bloqueado. Esto en este caso no sucede debido a que solamente se comparte un solo recurso entre todos los threads que es necesario para completar su ejecuci\'on, por lo que no se produce hold \& wait, que es lo explicado anteriormente.
+
+Al principio pensamos en tomar lock sobre una porcion de posiciones adyacentes a la posicion actual del cliente que quiere moverse mediante la adquisision sucesiva de varios mutexes(un mutex por posicion), esto nos permitia una sincronizacion mas granular del recurso \verb|aula| y permitia un grado mayor de multiprogramacion, pero dada la complejidad y los posibles problemas(deadlock entre ellos), decidimos simplificar el modelo a la version que se explica a continuacion.
 
 Se utilizan en total 3 mutex y 1 variable de condicion:
 
