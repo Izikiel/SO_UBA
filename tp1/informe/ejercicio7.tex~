@@ -1,7 +1,7 @@
   \subsection{Ejercicio 7}
 
   Para estudiar la performance del Round-Robin variando los cuantos creamos el lote7 y realizamos varias simulaciones. Variamos los quantums entre 1 y 10 inclusive y evaluamos el throughput y fairness con 2 y 4 n\'ucleos. Como las tareas TaskConsola son pseudoaleatorias,
-  para cada selecci\'on de par\'ametros corrimos 10 simulaciones y graficamos el promedio con la variaci\'on estandard.
+  para cada seleccio\'on de par\'ametros corrimos 10 simulaciones y graficamos el promedio con la variaci\'on estandard.
 
   \begin{figure}
   \includegraphics[scale=0.6]{images/TH.jpg}
