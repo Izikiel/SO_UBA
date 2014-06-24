@@ -29,9 +29,11 @@ Nuestro servidor multi consiste de un thread principal y un thread worker por ca
 \item El worker se encarga de atender a los clientes usando el protocolo cliente-servidor especificado anteriormente, recibiendo como par\'ametros el socket donde se conect\'o el cliente, y la estructura compartida tipo \verb|t_aula| aula.
 \end{itemize}
 
-Para sincronizar los accesos a los diferentes recursos compartidos del aula, y prevenir race conditions, se utilizaron diferentes estructuras de sincronizaci\'on del est\'andar pthread, \verb|pthread_mutex_t| y \verb|pthread_cond_t|, en las funciones \verb|t_aula_ingresar|, \verb|t_aula_liberar|, \verb|intentar_moverse|, y \\\verb|atendedor_de_alumno|. La variable de condici\'on solo fue utilizada para la funci\'on \verb|atendedor_de_alumno|.
+Para sincronizar los accesos a los diferentes recursos compartidos del aula, prevenir race conditions, se utilizaron diferentes estructuras de sincronizaci\'on del est\'andar pthread, \verb|pthread_mutex_t| y \verb|pthread_cond_t|, en las funciones \verb|t_aula_ingresar|, \verb|t_aula_liberar|, \verb|intentar_moverse|, y \\\verb|atendedor_de_alumno|. La variable de condici\'on solo fue utilizada para la funci\'on \verb|atendedor_de_alumno|.
 
-Una race condition es cuando var\'ia la ejecuci\'on dependiendo del orden de acceso a un recurso compartido, si este orden no es el esperado. Para evitar esto, se fuerza un orden determinado mediante diferentes estructuras de sincronizaci\'on, como mutex y sem\'aforos.
+Una race condition es cuando var\'ia la ejecuci\'on dependiendo del orden de acceso a un recurso compartido, si este orden no es el esperado. Para evitar esto, se fuerza un orden determinado mediante diferentes estructuras de sincronizaci\'on, como mutex y variables de condici\'on.
+
+Un deadlock es la situaci\'on donde 2 threads con 2 recursos tratan de acceder a un recurso que posee el otro, manteniendo el recurso que ya tienen, quedando el sistema bloqueado. Esto en este caso no sucede debido a que solamente se comparte un solo recurso entre todos los threads que es necesario para completar su ejecuci\'on, por lo que no se produce hold & wait, que es lo explicado anteriormente.
 
 Se utilizan en total 3 mutex y 1 variable de condicion:
 
