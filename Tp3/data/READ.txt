@@ -1,1 +1,1 @@
-bajar los datos de la pagina del tp y descomprimirlos aca
+Usar get_data.sh para bajar los datos
