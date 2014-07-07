@@ -8,6 +8,6 @@
 \contentsline {subsection}{\numberline {2.6}Ejercicio 6}{5}
 \contentsline {subsection}{\numberline {2.7}Ejercicio 7}{5}
 \contentsline {subsection}{\numberline {2.8}Ejercicio 8}{7}
-\contentsline {subsection}{\numberline {2.9}Ejercicio 9}{7}
-\contentsline {subsection}{\numberline {2.10}Ejercicio 10}{8}
-\contentsline {subsection}{\numberline {2.11}Ap\'endice: Lotes de prueba}{8}
+\contentsline {subsection}{\numberline {2.9}Ejercicio 9}{8}
+\contentsline {subsection}{\numberline {2.10}Ejercicio 10}{10}
+\contentsline {subsection}{\numberline {2.11}Ap\'endice: Lotes de prueba}{11}

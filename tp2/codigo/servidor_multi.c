@@ -129,6 +129,7 @@ int main(void){
 	}
 	//nunca deberia salir del while, pero arme el metodo por cuestiones de sanitizacion y buenas practicas
 	destroySyncElements();
+	pthread_exit(NULL);//posix pide esto
 	return 0;
 }
 
@@ -143,7 +144,7 @@ int main(void){
 		//POR CONVENCION MIA, INSTANCIO EL t_worker_parameters AL CREAR EL THREAD Y LO LIBERO ACA.	
 		printf("[Thread cliente %d] Chau, termino el worker con FD %d\n", parameters->socket_fd, parameters->socket_fd);
 		free(new_client_parameters);
-		return NULL;//no hace falta devolver algo concreto, NULL basta, no quiero monitorear los workers ni nada de eso.
+		pthread_exit(NULL);//no hace falta devolver algo concreto, NULL basta, no quiero monitorear los workers ni nada de eso.
 	}
 
 	bool t_aula_ingresar(t_aula *un_aula, t_persona *alumno){
