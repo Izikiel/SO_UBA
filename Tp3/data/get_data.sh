@@ -6,5 +6,5 @@ echo "uncompressing"
 tar -xzvf TP3.tar.gz
 echo "setting for db daemon"
 rm -f mongod.lock
-kill -15 $(pgrep -f mongod)
+2>/dev/null 1>/dev/null kill -15 $(pgrep -f mongod)
 mongod --dbpath .
