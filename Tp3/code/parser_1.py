@@ -6,7 +6,7 @@ def parse_data_string(s):
 	id_s = "u_id: u"
 	val_s = " uvalue: "
 	parsed_data = [map(lambda s: s.replace(id_s, "") if id_s in s else s.replace(val_s, ""), q.split(",")) for q in s]
-	return map(lambda x: [x[0], float(x[1])], filter(lambda q: q[1] != "-1.0", parsed_data))
+	return map(lambda x: (x[0], float(x[1])), filter(lambda q: q[1] != "-1.0", parsed_data))
 
 
 if __name__ == '__main__':
