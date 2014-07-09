@@ -1,0 +1,131 @@
+\documentclass{article}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{MnSymbol}
+\usepackage{upgreek}
+\usepackage{etoolbox}
+\usepackage{mathtools}
+\usepackage{makeidx}
+\usepackage{amsfonts}
+\title{Trabajo Pr\'actico 3: Map-Reduce}
+\author{Mart\'{i}n Arjovsky 683/12 \\ Ezequiel Dar\'io Gambaccini 715/13 \\ Silvio Vileri\~no 106/12}
+\date{Julio 2014}
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstset{
+   language=JavaScript,
+   backgroundcolor=\color{lightgray},
+   extendedchars=true,
+   basicstyle=\footnotesize\ttfamily,
+   showstringspaces=false,
+   showspaces=false,
+   numbers=left,
+   numberstyle=\footnotesize,
+   numbersep=9pt,
+   tabsize=2,
+   breaklines=true,
+   showtabs=false,
+   captionpos=b
+}
+
+
+\makeindex
+
+\begin{document}
+\maketitle
+
+\section{Encontrar las mejores pel\'iculas}
+
+\indent Se requer\'ia obtener la lista de las 12 pel\'iculas mejor rankeadas con m\'as de 20 reviews. Para esto, lo que decidimos hacer fue que en el map se emitiera el id del producto con un objeto que conten\'ia el puntaje de la review y una variable count inicializada a 1.
+\\\indent En el siguiente paso, reduce, lo que se hace es sumar todos los objetos {puntaje, cantidad} y emitir el resultado.
+\\\indent Finalmente, en el finalize, se filtra aquellas peliculas que tienen count > 19. Para las pel\'iculas que tienen m\'as de 19 rese\~nas se devuelve la sumatoria de puntajes dividida la cantidad de rese\~nas.
+\\\indent Para las que tienen menos de 20 rese\~nas se devuelve -1.
+\\\indent Luego, usando un script de python para parsear la salida de runner.py, se filtra aquellas peliculas que su puntaje promedio es distinto de -1, y luego se las ordena en orden decreciente por puntaje, quedandose con las primeras 12.
+
+Las pel\'iculas que obtuvimos con sus respectivos puntajes y nombres (conseguidos a trav\'es del buscador de Amazon) fueron:
+
+\begin{itemize}
+\item B00000JSJ5, 5.0, All Creatures Great and Small, Series 2: Volumes 1-6
+\item B00004YKS6, 5.0, Genghis Blues
+\item B00004YKS7, 5.0, Genghis Blues
+\item B0002NY7UY, 5.0, Live in Concert (Dion)
+\item B0007GAEXK, 5.0, The Mole - The Complete First Season
+\item B0007Z4HAC, 5.0, Salsa Crazy Presents: Learn to Salsa Dance, Intermediate Series, Volume 1
+\item B000AOEPU2, 5.0, WWE: Bret "Hitman" Hart - The Best There Is, The Best There Was, The Best There Ever Will Be
+\item B000MCIADA, 5.0, A Reiki 1st, Aura and Chakra Attunement Performed
+\item B003YBGJ4S, 5.0, WELL worked out with Tannis
+\item B004LK24BI, 5.0, 50/50 Cardio and Weights with Angie Gorr
+\item B006JN87UC, 5.0, Transformers: Prime - Season One
+\item B008COIZHQ, 5.0, Genghis Blues
+\item B005FY0FPG, 4.987012987012987, Dream With Me in Concert
+\item B000M7XRC4, 4.977777777777778, The Venture Bros. - Season Two
+\end{itemize}
+
+A continuaci\'on se muestra el c\'odigo de map, reduce y finalize respectivamente.
+
+\begin{lstlisting}
+function () {
+  data = {};
+  data.score = parseFloat(this.score,10);
+  data.count = 1;
+  emit(this.productId, data);
+}
+
+function (key, values) {
+  var res = {};
+  res.score = 0;
+  res.count = 0;
+  for (var i = values.length - 1; i >= 0; i--) {
+    var data = values[i];
+    res.score += data.score;
+    res.count += data.count;
+  };
+  return res;
+}
+
+function (key, reducedVal) {
+  if (reducedVal.count > 19) {
+    return reducedVal.score/reducedVal.count; 
+  } else{
+    return -1;
+  };
+}
+\end{lstlisting}
+
+\section{Palabras m\'as frecuentes}
+
+\indent Para obtener las 5 palabras m\'as usadas de cada puntaje, en la funci\'on de map se realizan varias operaciones:
+
+\begin{enumerate}
+  \item Se filtran los car\'acteres del texto de la review para que queden solo los alfanumericos, y se los pasa a minuscula.
+
+  \item Se divide el texto en un array de palabras y luego se aplica una funci\'on para filtrar aquellas palabras que est\'an en el array de stop words.
+
+  \item Finalmente, se cuentan las apariciones de cada palabra en un objeto, y se emite el valor del puntaje y el objeto que cuenta ocurrencias.
+\end{enumerate}
+
+\indent En el reduce, simplemente se genera un nuevo objeto con las ocurrencias de cada palabra de ese puntaje particular.
+\\\indent En el finalize, se invierten los valores del objeto, es decir, se devuelve un objeto que contiene numeros como claves y listas de palabras como valor. Los numeros representan la cantidad de apariciones de las palabras de la lista.
+\\\indent Finalmente, las palabras m\'as usadas para las reviews, divididas por puntaje, ocurrencias, y palabras, es:
+\end{document}
