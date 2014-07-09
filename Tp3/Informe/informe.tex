@@ -57,11 +57,11 @@
 
 \section{Encontrar las mejores pel\'iculas}
 
-\indent Se requer\'ia obtener la lista de las 12 pel\'iculas mejor rankeadas con m\'as de 20 reviews. Para esto, lo que decidimos hacer fue que en el map se emitiera el id del producto con un objeto que conten\'ia el puntaje de la review y una variable count inicializada a 1.
-\\\indent En el siguiente paso, reduce, lo que se hace es sumar todos los objetos {puntaje, cantidad} y emitir el resultado.
-\\\indent Finalmente, en el finalize, se filtra aquellas peliculas que tienen count > 19. Para las pel\'iculas que tienen m\'as de 19 rese\~nas se devuelve la sumatoria de puntajes dividida la cantidad de rese\~nas.
-\\\indent Para las que tienen menos de 20 rese\~nas se devuelve -1.
-\\\indent Luego, usando un script de python para parsear la salida de runner.py, se filtra aquellas peliculas que su puntaje promedio es distinto de -1, y luego se las ordena en orden decreciente por puntaje, quedandose con las primeras 12.
+ Se requer\'ia obtener la lista de las 12 pel\'iculas mejor rankeadas con m\'as de 20 reviews. Para esto, lo que decidimos hacer fue que en el map se emitiera el id del producto con un objeto que conten\'ia el puntaje de la review y una variable count inicializada a 1.
+\\ En el siguiente paso, reduce, lo que se hace es sumar todos los objetos {puntaje, cantidad} y emitir el resultado.
+\\ Finalmente, en el finalize, se filtra aquellas peliculas que tienen count > 19. Para las pel\'iculas que tienen m\'as de 19 rese\~nas se devuelve la sumatoria de puntajes dividida la cantidad de rese\~nas.
+\\ Para las que tienen menos de 20 rese\~nas se devuelve -1.
+\\ Luego, usando un script de python para parsear la salida de runner.py, se filtra aquellas peliculas que su puntaje promedio es distinto de -1, y luego se las ordena en orden decreciente por puntaje, quedandose con las primeras 12.
 
 Las pel\'iculas que obtuvimos con sus respectivos puntajes y nombres (conseguidos a trav\'es del buscador de Amazon) fueron:
 
@@ -115,7 +115,7 @@ function (key, reducedVal) {
 
 \section{Palabras m\'as frecuentes}
 
-\indent Para obtener las 5 palabras m\'as usadas de cada puntaje, en la funci\'on de map se realizan varias operaciones:
+ Para obtener las 5 palabras m\'as usadas de cada puntaje, en la funci\'on de map se realizan varias operaciones:
 
 \begin{enumerate}
   \item Se filtran los car\'acteres del texto de la review para que queden solo los alfanumericos, y se los pasa a minuscula.
@@ -125,7 +125,119 @@ function (key, reducedVal) {
   \item Finalmente, se cuentan las apariciones de cada palabra en un objeto, y se emite el valor del puntaje y el objeto que cuenta ocurrencias.
 \end{enumerate}
 
-\indent En el reduce, simplemente se genera un nuevo objeto con las ocurrencias de cada palabra de ese puntaje particular.
-\\\indent En el finalize, se invierten los valores del objeto, es decir, se devuelve un objeto que contiene numeros como claves y listas de palabras como valor. Los numeros representan la cantidad de apariciones de las palabras de la lista.
-\\\indent Finalmente, las palabras m\'as usadas para las reviews, divididas por puntaje, ocurrencias, y palabras, es:
+ En el reduce, simplemente se genera un nuevo objeto con las ocurrencias de cada palabra de ese puntaje particular.
+\\ En el finalize, se invierten los valores del objeto, es decir, se devuelve un objeto que contiene numeros como claves y listas de palabras como valor. Los numeros representan la cantidad de apariciones de las palabras de la lista.
+\\ Finalmente, las palabras m\'as usadas para las reviews, divididas por puntaje, ocurrencias, y palabras, es:
+\\ A continuaci\'on se muestra el c\'odigo de map, reduce y finalize respectivamente.
+
+\begin{lstlisting}
+function () {
+
+  var data = this.text.slice(0);
+
+  data = data.replace(/\W/g, ' ').toLowerCase(); //remueve caracteres no alfanumericos
+
+  var stop_words = ["","a","able","about","across","after","all","almost","also","am","among","an",
+  "and","any","are","as","at","be","because","been","but","by","can","cannot",
+  "could","dear","did","do","does","either","else","ever","every","for","from",
+  "get","got","had","has","have","he","her","hers","him","his","how","however",
+  "i","if","in","into","is","it","its","just","least","let","like","likely","may",
+  "me","might","most","must","my","neither","no","nor","not","of","off","often",
+  "on","only","or","other","our","own","rather","said","say","says","she","should",
+  "since","so","some","than","that","the","their","them","then","there","these",
+  "they","this","tis","to","too","twas","us","wants","was","we","were","what",
+  "when","where","which","while","who","whom","why","will","with","would","yet","you","your"];
+
+  var clear_stopwords = function (elem) {
+    return (stop_words.indexOf(elem) === -1);
+  }
+
+  var filtered = data.split(" ").filter(clear_stopwords);
+
+  var dict = new Object();
+
+  for (var i = filtered.length - 1; i >= 0; i--) {
+    var s = filtered[i];
+    if( s in dict) {
+      dict[s] += 1;
+    }
+    else {
+      dict[s] = 1;
+    }
+  };
+
+  emit(this.score, tojson(dict));
+}
+
+function (key, values) {
+
+  var res = new Object();
+
+  for (var i = values.length - 1; i >= 0; i--) {
+    var data = JSON.parse(values[i]);
+    for (var key in data){
+      if (data.hasOwnProperty(key)){
+        if( key in res) {
+          res[key] += 1;
+        }
+        else {
+          res[key] = 1;
+        }
+      }
+    }
+  };
+
+  return tojson(res);
+}
+
+function (key, reducedVal) {
+  reducedVal = JSON.parse(reducedVal);
+  var top_words = new Object();
+  
+  for(var word in reducedVal){
+    if (reducedVal.hasOwnProperty(word)) {
+      var count = reducedVal[word];
+      if (count in top_words){
+        top_words[count].push(word);
+      }
+      else{
+        top_words[count] = [word];
+      }
+    }
+  }
+  return tojson(top_words);
+}
+\end{lstlisting}
+
+\section{Helpfulness y Longitud}
+
+ Este fue el ejercicio m\'as sencillo de los tres.
+\\ En el map, simplemente se emite el helpfulness y la longitud de la review.
+\\ Luego, en el reduce, se calcula la longitud promedio de las reviews, sumando sus longitudes y dividiendolas por la cantidad de valores en ese reduce.
+\\ A continuaci\'on se muestra el c\'odigo de map y reduce respectivamente.
+
+\begin{lstlisting}
+function () {
+  emit(this.helpfulness, this.text.length);
+}
+
+function (key, values) { 
+    avg_length = 0;
+    for (var i=0; i < values.length; i++){
+        avg_length += values[i];
+    }
+    return avg_length/values.length;
+}
+\end{lstlisting}
+La data luego fue parseada para realizar el an\'alisis del punto 4. En este caso se midi\'o la helpfulness como el cociente entre los votos de que una review era helpful y la cantidad total de votos. Se evalu\'o el coeficiente de correlaci\'on lineal de Pearson entre la helpfulness y la longitud promedio de las reviews, dando un valor de $0.3159$. Esto indica que las variables est\'an positivamente correlacionadas, indicando que es probable que cuando una crezca, la otra lo haga tambi\'en.
+\\ Sin embargo es importante mostrar que no parece haber una correlaci\'on lineal entre estos factores, como se evidencia en el siguiente gr\'afico, por esto es que concluimos que otras m\'etricas pueden ser m\'as \'utiles para medir la influencia de un dato sobre el otro. De todas maneras este coeficiente nos da la indicaci\'on (soportada por el gr\'afico) de que estas variables no son independientes, y de que se puede extraer informaci\'on de una a partir de la otra.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.65]{corr.jpg}
+\end{figure}
+
+
+
+
 \end{document}
