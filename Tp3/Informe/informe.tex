@@ -296,8 +296,25 @@ Amazon EMR, provee una forma simple, segura y rapida de solucionar este inconven
 De manera facil, se puede incrementar o decrementar la cantidad de recursos para diferentes necesidades asociadas a volumenes de datos o necesidad de procesamiento mas rapido. El costo del servicio es flexible, puede pagarse por hora \verb|on-demand|, por capacidad fija reservada, entre otros. 
 
 \subsection{Presupuesto y escalabilidad}
-Dado que los volumenes de datos creceran a un ritmo lineal anual, y que \verb|map-reduce| tiene como premisa la escalabilidad lineal(doble procesamiento - mitad de tiempo), será necesario duplicar anualmente el poder de computo y almacenamiento en la nube, para mantener el rendimiento constante.
-Respecto a la mejora obtenida respecto a utilizar una sola pc y utilizar los servicios en la nube es similar, dada la relacion de escalabilidad lineal, el rendimiento se duplicara a medida que dupliquemos la cantidad de nodos en los clusteres de Amazon contratados.\\
+Dado que los volumenes de datos creceran a un ritmo lineal anual, y que \verb|map-reduce| tiene como premisa la escalabilidad lineal(por ejemplo: doble procesamiento - mitad de tiempo), Sean X el volumen de datos, Y la capacidad de procesamiento, Z el rendimiento obtenido en tiempo(mientras Z decrece, mayor rendimiento) y $k,t \in \mathbb{N}$, se tiene:
+\newpage
+\begin{center}
+    Ecuacion de escalabilidad lineal para tamaño fijo de datos: \\
+    \textbf{$X$ datos en $t.Y$ hardware $\rightarrow$ $\frac{Z}{t}$ tiempo}
+\end{center}
+Asumiendo que el tiempo de procesamiento crece linealmente junto al tamaño de los datos, tenemos:\\
+\begin{center}
+    Ecuacion de escalabilidad lineal generalizada:\\
+    \textbf{$k.X$ datos en $t.Y$ hardware $\rightarrow$ $\frac{k.Z}{t}$ tiempo}
+\end{center}
+
+Si queremos mantener el rendimiento Z constante, debemos incrementar linealmente en un factor k el hardware Y de forma anual de forma que la ecuacion se reestablezca:
+\begin{center}
+    Ecuacion de escalabilidad balanceada:\\
+    \textbf{$k.X$ datos en $(k.t).Y$ hardware $\rightarrow$ $\frac{k.Z}{(k.t)}$ tiempo $\rightarrow$ $\frac{Z}{t}$ tiempo}
+\end{center}
+
+Respecto a la mejora obtenida respecto a utilizar una sola pc y utilizar los servicios en la nube es similar, dada la relacion de escalabilidad lineal, el rendimiento se mejorara linealmente a medida que incrementemos de forma lineal la cantidad de nodos en los clusteres de Amazon contratados.\\
 
 En un caso hipotetico, dado que Amazon ofrece un clúster de Hadoop de 10 nodos por 0,15 USD la hora, habria que calcular los tiempos promedio de procesamiento requeridos, ajustar la cantidad de nodos segun el volumen, el tiempo necesario de procesamiento y hacer los calculos del gasto mensual, anual, etc del servicio requerido a Amazon. Siempre teniendo en cuenta que debe duplicarse anualmente la cantidad de nodos para mantener estable el rendimiento por lo mencionado en el parrafo anterior.
 
