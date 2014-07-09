@@ -91,9 +91,35 @@ En el finalize, se invierten los valores del objeto, es decir, se devuelve un ob
 
 Finalmente, las palabras más usadas para las reviews, divididas por puntaje, ocurrencias, y palabras, es:
 
+Puntaje: 1.0
+268: film
+271: time
+297: dvd
+325: one
+372: movie
 
+Puntaje: 2.0
+182 : very
+189 : dvd
+196 : one
+247 : good
+334 : movie
 
+Puntaje: 3.0
+252 : dvd
+264 : one
+276 : great
+328 : good
+369 : movie
 
+Puntaje: 4.0
+356  : very
+368  : one
+376  : good , great 
+381  : movie 
+
+Puntaje: 5.0
+381: dvd,really,film,love,see
 
 
 3) Este fue el ejercicio más sencillo de los 3.
