@@ -191,10 +191,10 @@ function () {
 
   for (var i = filtered.length - 1; i >= 0; i--) {
     var s = filtered[i];
-    if( s in dict) {
+    if( s in dict) {
       dict[s] += 1;
     }
-    else {
+    else {
       dict[s] = 1;
     }
   };
@@ -210,10 +210,10 @@ function (key, values) {
     var data = JSON.parse(values[i]);
     for (var key in data){
       if (data.hasOwnProperty(key)){
-        if( key in res) {
+        if( key in res) {
           res[key] += 1;
         }
-        else {
+        else {
           res[key] = 1;
         }
       }
@@ -299,7 +299,7 @@ De manera facil, se puede incrementar o decrementar la cantidad de recursos para
 Dado que los volumenes de datos creceran a un ritmo lineal anual, y que \verb|map-reduce| tiene como premisa la escalabilidad lineal(por ejemplo: doble procesamiento - mitad de tiempo), Sean X el volumen de datos, Y la capacidad de procesamiento, Z el rendimiento obtenido en tiempo(mientras Z decrece, mayor rendimiento) y $k,t \in \mathbb{N}$, se tiene:
 \newpage
 \begin{center}
-    Ecuacion de escalabilidad lineal para tamaño fijo de datos: \\
+    Ecuacion de escalabilidad lineal para tama\~no fijo de datos: \\
     \textbf{$X$ datos en $t.Y$ hardware $\rightarrow$ $\frac{Z}{t}$ tiempo}
 \end{center}
 Asumiendo que el tiempo de procesamiento crece linealmente junto al tamaño de los datos, tenemos:\\

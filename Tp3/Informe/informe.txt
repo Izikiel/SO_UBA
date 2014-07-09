@@ -1,0 +1,167 @@
+1) Se requería obtener la lista de las 12 películas mejor rankeadas con más de 20 reviews. Para esto, lo que decidimos hacer fue que en el map se emitiera el id del producto con un objeto que contenía el puntaje de la review y una variable count inicializada a 1.
+En el siguiente paso, reduce, lo que se hace es sumar todos los objetos {puntaje, cantidad} y emitir el resultado.
+Finalmente, en el finalize, se filtra aquellas peliculas que tienen count > 19. Para las películas que tienen más de 19 reseñas se devuelve la sumatoria de puntajes dividida la cantidad de reseñas.
+Para las que tienen menos de 20 reseñas se devuelve -1.
+Luego, usando un script de python para parsear la salida de runner.py, se filtra aquellas peliculas que su puntaje promedio es distinto de -1, y luego se las ordena en orden decreciente por puntaje, quedandose con las primeras 12.
+
+Las películas que obtuvimos finalmente fueron:
+
+[('B00000JSJ5', 5.0),
+ ('B00004YKS6', 5.0),
+ ('B00004YKS7', 5.0),
+ ('B0002NY7UY', 5.0),
+ ('B0007GAEXK', 5.0),
+ ('B0007Z4HAC', 5.0),
+ ('B000AOEPU2', 5.0),
+ ('B000MCIADA', 5.0),
+ ('B003YBGJ4S', 5.0),
+ ('B004LK24BI', 5.0),
+ ('B006JN87UC', 5.0),
+ ('B008COIZHQ', 5.0),
+ ('B005FY0FPG', 4.987012987012987),
+ ('B000M7XRC4', 4.977777777777778)]
+
+Consiguiendo los nombres a traves del buscador de la pagina de amazon.com, sus nombres son:
+
+· All Creatures Great and Small, Series 2: Volumes 1-6
+· Genghis Blues (B00004YKS6, B008COIZHQ, B00004YKS7 son la misma pelicula en diferentes formatos)
+· Live in Concert (Dion)
+· The Mole - The Complete First Season
+· Salsa Crazy Presents: Learn to Salsa Dance, Intermediate Series, Volume 1
+· WWE: Bret "Hitman" Hart - The Best There Is, The Best There Was, The Best There Ever Will Be
+· A Reiki 1st, Aura and Chakra Attunement Performed
+· WELL worked out with Tannis
+· 50/50 Cardio and Weights with Angie Gorr
+· Transformers: Prime - Season One
+· Dream With Me in Concert
+· The Venture Bros. - Season Two
+
+
+
+///////////////
+CODIGO MAP
+///////////////
+
+function () {
+	data = {};
+	data.score = parseFloat(this.score,10);
+	data.count = 1;
+	emit(this.productId, data);
+}
+
+///////////////
+CODIGO REDUCE
+///////////////
+
+function (key, values) {
+	var res = {};
+	res.score = 0;
+	res.count = 0;
+	for (var i = values.length - 1; i >= 0; i--) {
+		var data = values[i];
+		res.score += data.score;
+		res.count += data.count;
+	};
+	return res;
+}
+
+///////////////
+CODIGO FINALIZE
+///////////////
+
+function (key, reducedVal) {
+	if (reducedVal.count > 19) {
+		return reducedVal.score/reducedVal.count;	
+	} else{
+		return -1;
+	};
+}
+
+
+2) Para obtener las 5 palabras más usadas de cada puntaje, en la función de map se realizan varias operaciones:
+	a) Se filtran los carácteres del texto de la review para que queden solo los alfanumericos, y se los pasa a minuscula.
+
+	b) Se divide el texto en un array de palabras y luego se aplica una función para filtrar aquellas palabras que están en el array de stop words.
+
+	c) Finalmente, se cuentan las apariciones de cada palabra en un objeto, y se emite el valor del puntaje y el objeto que cuenta ocurrencias.
+
+En el reduce, simplemente se genera un nuevo objeto con las ocurrencias de cada palabra de ese puntaje particular.
+
+En el finalize, se invierten los valores del objeto, es decir, se devuelve un objeto que contiene numeros como claves y listas de palabras como valor. Los numeros representan la cantidad de apariciones de las palabras de la lista.
+
+Finalmente, las palabras más usadas para las reviews, divididas por puntaje, ocurrencias, y palabras, es:
+
+Puntaje: 1.0
+268: film
+271: time
+297: dvd
+325: one
+372: movie
+
+Puntaje: 2.0
+182 : very
+189 : dvd
+196 : one
+247 : good
+334 : movie
+
+Puntaje: 3.0
+252 : dvd
+264 : one
+276 : great
+328 : good
+369 : movie
+
+Puntaje: 4.0
+356  : very
+368  : one
+376  : good , great 
+381  : movie 
+
+Puntaje: 5.0
+381: dvd,really,film,love,see
+
+
+3) Este fue el ejercicio más sencillo de los 3.
+En el map, simplemente se emite el helpfulness y la longitud de la review.
+Luego, en el reduce, se calcula la longitud promedio de las reviews, sumando sus longitudes y dividiendolas por la cantidad de valores en ese reduce.
+La data luego fue parseada para realizar el análisis del punto 4.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
