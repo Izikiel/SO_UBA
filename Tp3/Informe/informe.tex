@@ -7,6 +7,7 @@
 \usepackage{etoolbox}
 \usepackage{mathtools}
 \usepackage{makeidx}
+\usepackage{hyperref}
 \usepackage{amsfonts}
 \title{Trabajo Pr\'actico 3: Map-Reduce}
 \author{Mart\'{i}n Arjovsky 683/12 \\ Ezequiel Dar\'io Gambaccini 715/13 \\ Silvio Vileri\~no 106/12}
@@ -59,7 +60,7 @@
 
  Se requer\'ia obtener la lista de las 12 pel\'iculas mejor rankeadas con m\'as de 20 reviews. Para esto, lo que decidimos hacer fue que en el map se emitiera el id del producto con un objeto que conten\'ia el puntaje de la review y una variable count inicializada a 1.
 \\ En el siguiente paso, reduce, lo que se hace es sumar todos los objetos {puntaje, cantidad} y emitir el resultado.
-\\ Finalmente, en el finalize, se filtra aquellas peliculas que tienen count > 19. Para las pel\'iculas que tienen m\'as de 19 rese\~nas se devuelve la sumatoria de puntajes dividida la cantidad de rese\~nas.
+\\ Finalmente, en el finalize, se filtra aquellas peliculas que tienen count $>$ 19. Para las pel\'iculas que tienen m\'as de 19 rese\~nas se devuelve la sumatoria de puntajes dividida la cantidad de rese\~nas.
 \\ Para las que tienen menos de 20 rese\~nas se devuelve -1.
 \\ Luego, usando un script de python para parsear la salida de runner.py, se filtra aquellas peliculas que su puntaje promedio es distinto de -1, y luego se las ordena en orden decreciente por puntaje, quedandose con las primeras 12.
 
@@ -269,23 +270,36 @@ La data luego fue parseada para realizar el an\'alisis del punto 4. En este caso
 \includegraphics[scale=0.65]{corr.jpg}
 \end{figure}
 
-\subsection{Cloud Computing - Haas: Definicion - Ventajas}
+\section{Escalabilidad}
+
+\subsection{Cloud Computing - Haas: Definicion}
 La computacion en la nube son servidores - o granjas de servidores - repartidos por todo el mundo que alojan servicios de manera remota de forma tal que se puede acceder a un servicio contratado desde cualquier parte del mundo donde se disponga de una conexion a internet
 
 La infraestructura como servicio (IaaS) o hardware as a service (HaaS) provee almacenamiento b\'asico y soluciones de c\'omputo como servicios contratables en la red.
 Servidores, sistemas de almacenamiento, conexiones, routers, y otros sistemas se concentran a trav\'es de la tecnolog\'ia de virtualizaci\'on para manejar tipos espec\'ificos de cargas de trabajo. El ejemplo comercial mejor conocido es Amazon Web Services, cuyos servicios EC2 y S3 ofrecen c\'omputo y servicios de almacenamiento esenciales a clientes, de forma que puedan accederlos de forma sencilla y con alto grado de estabilidad. 
 
 \subsection{Implementacion de nuestra solucion en la nube}
+Existe un framework llamado Hadoop, que puede ayudarte a almacenar y procesar grandes volumenes de datos a cualquier escala, a traves de la distribucion de estos datos sobre una granja de servidores. El problema es que el lanzamiento, aprovisionamiento, manejo y configuracion de Hadoop puede ser complicado, costoso y puede tomar mucho tiempo valioso que puede aprovecharse analizando los datos. La forma mas comun de implementar esta idea, es comprar el servicio de \verb|hardware as a service (Haas)|, aprovisionar el hardware, instalar y finalmente lanzar el software sobre el hardware en la nube obtenido, todo esto sin poder siquiera haber procesado ningun dato aun.\\
 
-Para esta solucion desarrollada, dado el crecimiento anual lineal de los datos, creemos que la mejor opcion para migrar nuestro sistema a la nube es la siguiente:
+\href{http://aws.amazon.com/es/elasticmapreduce/}{Amazon EMR} provee soluciones de facil uso, migracion y escalabilidad para el procesamiento de grandes cantidades de 
+datos.
+Amazon EMR, provee una forma simple, segura y rapida de solucionar este inconveniente: Aprovechando las plataformas \verb|Amazon EC2| y \verb|Amazon S3| se proveen soluciones de almacenamiento y procesamiento en la nube, brindando un entorno Hadoop que distribuye el procesamiento de los datos sobre multiples instancias de \verb|Amazon EC2|. Dado que \verb|Amazon EMR| permite trabajar con codigo \verb|map-reduce| personalizable, una vez obtenido el servicio, para comenzar, deben realizarse los siguientes pasos:
+\begin{enumerate}
+  \item Cargar los datos y aplicaciones de procesamiento dentro de \verb|Amazon S3|
+  \item Distribuir los datos en la instancia de \verb|Amazon EC2|
+  \item \verb|Amazon EMR| comienza a procesar los datos!
+  \item Al finalizar el procesamiento, los resultados estaran disponibles en la instancia de \verb|Amazon S3|
+\end{enumerate}
 
-\begin{itemize}
-  \item Breve descripcion de implementacion
-  \item Evaluacion informal del impacto en el rendimiento
-  \item Presupuesto economico
-\end{itemize}
+\subsection{Flexibilidad y costos}
+\verb|Amazon EMR| monitorea el trabajo en todo momento, para desalojar los recursos en la nube al finalizar este, de esta forma, solo se paga por lo que se usa.
+De manera facil, se puede incrementar o decrementar la cantidad de recursos para diferentes necesidades asociadas a volumenes de datos o necesidad de procesamiento mas rapido. El costo del servicio es flexible, puede pagarse por hora \verb|on-demand|, por capacidad fija reservada, entre otros. 
 
+\subsection{Presupuesto y escalabilidad}
+Dado que los volumenes de datos creceran a un ritmo lineal anual, y que \verb|map-reduce| tiene como premisa la escalabilidad lineal(doble procesamiento - mitad de tiempo), será necesario duplicar anualmente el poder de computo y almacenamiento en la nube, para mantener el rendimiento constante.
+Respecto a la mejora obtenida respecto a utilizar una sola pc y utilizar los servicios en la nube es similar, dada la relacion de escalabilidad lineal, el rendimiento se duplicara a medida que dupliquemos la cantidad de nodos en los clusteres de Amazon contratados.\\
 
+En un caso hipotetico, dado que Amazon ofrece un clúster de Hadoop de 10 nodos por 0,15 USD la hora, habria que calcular los tiempos promedio de procesamiento requeridos, ajustar la cantidad de nodos segun el volumen, el tiempo necesario de procesamiento y hacer los calculos del gasto mensual, anual, etc del servicio requerido a Amazon. Siempre teniendo en cuenta que debe duplicarse anualmente la cantidad de nodos para mantener estable el rendimiento por lo mencionado en el parrafo anterior.
 
 
 \end{document}
