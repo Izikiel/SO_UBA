@@ -127,8 +127,40 @@ function (key, reducedVal) {
 
  En el reduce, simplemente se genera un nuevo objeto con las ocurrencias de cada palabra de ese puntaje particular.
 \\ En el finalize, se invierten los valores del objeto, es decir, se devuelve un objeto que contiene numeros como claves y listas de palabras como valor. Los numeros representan la cantidad de apariciones de las palabras de la lista.
-\\ Finalmente, las palabras m\'as usadas para las reviews, divididas por puntaje, ocurrencias, y palabras, es:
-\\ A continuaci\'on se muestra el c\'odigo de map, reduce y finalize respectivamente.
+\\ Finalmente, las palabras m\'as usadas para las reviews, divididas por puntaje, ocurrencias, y palabras, son:
+
+\begin{itemize}
+\item Puntaje: 1.0 \\
+268: film \\
+271: time \\
+297: dvd \\
+325: one \\
+372: movie 
+
+\item Puntaje: 2.0 \\
+182 : very \\
+189 : dvd \\
+196 : one \\
+247 : good \\
+334 : movie
+
+\item Puntaje: 3.0 \\
+252 : dvd \\
+264 : one \\
+276 : great \\
+328 : good \\
+369 : movie
+
+\item Puntaje: 4.0 \\
+356  : very \\
+368  : one \\
+376  : good , great \\ 
+381  : movie
+
+\item Puntaje: 5.0 \\
+381: dvd,really,film,love,see
+\end{itemize}
+A continuaci\'on se muestra el c\'odigo de map, reduce y finalize respectivamente.
 
 \begin{lstlisting}
 function () {
@@ -236,6 +268,22 @@ La data luego fue parseada para realizar el an\'alisis del punto 4. En este caso
 \centering
 \includegraphics[scale=0.65]{corr.jpg}
 \end{figure}
+
+\subsection{Cloud Computing - Haas: Definicion - Ventajas}
+La computacion en la nube son servidores - o granjas de servidores - repartidos por todo el mundo que alojan servicios de manera remota de forma tal que se puede acceder a un servicio contratado desde cualquier parte del mundo donde se disponga de una conexion a internet
+
+La infraestructura como servicio (IaaS) o hardware as a service (HaaS) provee almacenamiento básico y soluciones de cómputo como servicios contratables en la red.
+Servidores, sistemas de almacenamiento, conexiones, routers, y otros sistemas se concentran a través de la tecnología de virtualización para manejar tipos específicos de cargas de trabajo. El ejemplo comercial mejor conocido es Amazon Web Services, cuyos servicios EC2 y S3 ofrecen cómputo y servicios de almacenamiento esenciales a clientes, de forma que puedan accederlos de forma sencilla y con alto grado de estabilidad. 
+
+\subsection{Implementacion de nuestra solucion en la nube}
+
+Para esta solucion desarrollada, dado el crecimiento anual lineal de los datos, creemos que la mejor opcion para migrar nuestro sistema a la nube es la siguiente:
+
+\begin{itemize}
+  \item Breve descripcion de implementacion
+  \item Evaluacion informal del impacto en el rendimiento
+  \item Presupuesto economico
+\end{itemize}
 
 
 
