@@ -96,6 +96,16 @@ Finalmente, las palabras más usadas para las reviews, divididas por puntaje, oc
 
 
 
+3) Este fue el ejercicio más sencillo de los 3.
+En el map, simplemente se emite el helpfulness y la longitud de la review.
+Luego, en el reduce, se calcula la longitud promedio de las reviews, sumando sus longitudes y dividiendolas por la cantidad de valores en ese reduce.
+La data luego fue parseada para realizar el análisis del punto 4.
+
+
+
+
+
+
 
 
 
